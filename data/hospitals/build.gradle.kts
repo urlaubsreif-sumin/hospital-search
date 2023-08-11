@@ -58,6 +58,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
 
+    /* tikXML */
     val tikxml_version = "0.8.13"
     implementation("com.tickaroo.tikxml:annotation:$tikxml_version")
     implementation("com.tickaroo.tikxml:core:$tikxml_version")

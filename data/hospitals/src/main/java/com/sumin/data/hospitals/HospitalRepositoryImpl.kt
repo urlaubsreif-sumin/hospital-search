@@ -11,7 +11,6 @@ class HospitalRepositoryImpl(
 
     override suspend fun getHospitalList(page: Int): List<HospitalModel> =
         hospitalRemoteDataSource.getHospitalList(page, NUM_OF_ROWS).map {
-            Log.i("[api test]", "model: ${it.yadmNm}")
             it.toHospitalModel() }
 
 

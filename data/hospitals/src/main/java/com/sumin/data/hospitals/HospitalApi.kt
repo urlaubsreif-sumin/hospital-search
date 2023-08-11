@@ -44,12 +44,11 @@ interface HospitalApi {
 
 
     companion object {
-        const val BASE_URL = "http://apis.data.go.kr/B551182/hospInfoServicev2/"
+        private const val BASE_URL = "http://apis.data.go.kr/B551182/hospInfoServicev2/"
         private val client = OkHttpClient.Builder()
             .build()
 
         private val parser = TikXml.Builder().exceptionOnUnreadXml(false).build()
-        private val gson = GsonBuilder().setLenient().create()
 
         fun create(): HospitalApi {
             return Retrofit.Builder()

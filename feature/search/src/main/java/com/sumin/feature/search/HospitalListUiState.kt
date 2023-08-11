@@ -1,6 +1,6 @@
 package com.sumin.feature.search
 
-data class HospitalUiState(
+data class HospitalListUiState(
     val items: List<HospitalItemUiState> = listOf(),
     val messages: List<Message> = listOf(),
     val isFetchingHospitals: Boolean = false

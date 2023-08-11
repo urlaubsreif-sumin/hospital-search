@@ -17,8 +17,8 @@ class SearchFragmentViewModel(
     private val hospitalRepository: HospitalRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HospitalUiState())
-    val uiState: StateFlow<HospitalUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(HospitalListUiState())
+    val uiState: StateFlow<HospitalListUiState> = _uiState.asStateFlow()
 
     private var fetchJob: Job? = null
 
