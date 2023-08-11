@@ -6,6 +6,7 @@
 - **Design Pattern** : MVVM
 - **Android Skills**
     - Modularization
+    - RecyclerView
     - Retrofit2 + Tikxml
     - *AAC(Android Architecture Components)* : ViewModel, DataBinding
     - StateFlow, Coroutine
