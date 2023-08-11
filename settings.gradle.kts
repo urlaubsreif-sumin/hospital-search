@@ -11,8 +11,15 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        create("gradle") {
+            from(files("gradle/gradle.versions.toml"))
+        }
+    }
 }
 
 rootProject.name = "HospitalSearch"
 include(":app")
- 
+include(":data:hospitals")
+include(":feature:search")
+include(":domain:hospital-list")
