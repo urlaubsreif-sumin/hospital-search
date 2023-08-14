@@ -9,8 +9,8 @@ data class HospitalListUiState(
 data class Message(val id: Long, val message: String)
 
 data class HospitalItemUiState(
+    val code: String,
     val hospitalName: String,
-    val telephoneNumber: String,
-    val homepageUrl: String,
-    val address: String
+    val sidoAddr: String,
+    val sgguAddr: String
 )

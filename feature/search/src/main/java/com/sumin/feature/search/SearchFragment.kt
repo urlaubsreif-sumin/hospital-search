@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,11 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.sumin.feature.search.databinding.FragmentSearchBinding
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlin.math.max
 
 
 class SearchFragment : Fragment() {
@@ -38,14 +35,13 @@ class SearchFragment : Fragment() {
                 searchFragmentViewModel.uiState.collect { uiState ->
                     binding.progressBar.isVisible = uiState.isFetchingHospitals
                     binding.result.text =
-                        if(uiState.messages.isNotEmpty()) {
+                        if (uiState.messages.isNotEmpty()) {
                             val msg = uiState.messages.joinToString(",") { it.message }
-                            Log.i("[api test]", "msg = $msg")
+
                             msg
 
                         } else {
                             uiState.items.map {
-                                Log.i("[api test]", "items... ${it.hospitalName}")
                                 it.hospitalName
                             }.joinToString(", ")
                         }
@@ -70,9 +66,22 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
 
-        binding.prevPage.setOnClickListener { page = max(1, page - 1) }
-        binding.nextPage.setOnClickListener { page += 1 }
-        binding.search.setOnClickListener { searchFragmentViewModel.searchHospitals(page) }
+    private fun initView() {
+        binding.apply {
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    searchFragmentViewModel.searchHospitals(query ?: "", 1)
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return true
+                }
+
+            })
+        }
     }
 }

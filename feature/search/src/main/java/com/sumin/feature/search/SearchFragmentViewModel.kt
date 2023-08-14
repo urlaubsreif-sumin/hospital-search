@@ -22,8 +22,7 @@ class SearchFragmentViewModel(
 
     private var fetchJob: Job? = null
 
-    fun searchHospitals(page: Int) {
-        Log.i("[api test]", "searchHospitals -> page=$page")
+    fun searchHospitals(query: String, page: Int) {
         _uiState.update {
             it.copy(isFetchingHospitals = true)
         }
@@ -31,13 +30,12 @@ class SearchFragmentViewModel(
         fetchJob?.cancel()
         fetchJob = viewModelScope.launch {
             try {
-                val hospitalItemUiStates = hospitalRepository.getHospitalList(page).map {
-                    Log.i("[api test]", "VM map. ${it.hospitalName}")
+                val hospitalItemUiStates = hospitalRepository.getHospitalListByHospitalName(query, page).map {
                     HospitalItemUiState(
+                        code = it.code,
                         hospitalName = it.hospitalName ?: "정보 없음",
-                        telephoneNumber = it.telephoneNumber ?: "정보 없음",
-                        address = it.address ?: "정보 없음",
-                        homepageUrl = it.homepageUrl ?: "정보 없음"
+                        sidoAddr = it.sidoAddr ?: "정보 없음",
+                        sgguAddr = it.sgguAddr ?: "정보 없음"
                     )
                 }
 

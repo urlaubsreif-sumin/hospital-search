@@ -11,11 +11,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-    versionCatalogs {
-        create("gradle") {
-            from(files("gradle/gradle.versions.toml"))
-        }
-    }
 }
 
 rootProject.name = "HospitalSearch"

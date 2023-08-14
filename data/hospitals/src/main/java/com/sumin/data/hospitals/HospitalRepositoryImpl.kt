@@ -13,6 +13,15 @@ class HospitalRepositoryImpl(
         hospitalRemoteDataSource.getHospitalList(page, NUM_OF_ROWS).map {
             it.toHospitalModel() }
 
+    override suspend fun getHospitalListByHospitalName(
+        name: String,
+        page: Int
+    ): List<HospitalModel> =
+        hospitalRemoteDataSource.getHospitalListByHospitalName(name, page, NUM_OF_ROWS).map {
+            it.toHospitalModel()
+        }
+
+
 
     companion object {
         private const val NUM_OF_ROWS = 10

@@ -16,7 +16,7 @@ data class HospitalApiModel(
 
 	/** 종별 코드 */
 	@PropertyElement(name = "clCd")
-	val clCd: String? = null,
+	val clCd: String,
 
 	/** 종별 코드 명 */
 	@PropertyElement(name = "clCdNm")
