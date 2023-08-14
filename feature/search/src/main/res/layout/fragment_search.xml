@@ -25,8 +25,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp">
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/search_view"
@@ -36,7 +36,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:iconifiedByDefault="false"
-                    app:searchIcon="@drawable/icn_search"
+                    app:searchIcon="@null"
+                    app:goIcon="@drawable/icn_search"
                     app:closeIcon="@drawable/icn_close"
                     app:queryHint="@string/search_view_hint"
                     app:queryBackground="@drawable/bg_search_view"/>
@@ -45,23 +46,13 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <!--<androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_hospital_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/tool_bar"
-            app:layout_constraintBottom_toBottomOf="parent"/>-->
-
-        <TextView
-            android:id="@+id/result"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="Hello World!"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tool_bar" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"

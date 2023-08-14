@@ -1,7 +1,6 @@
 package com.sumin.feature.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sumin.feature.search.databinding.FragmentSearchBinding
 import kotlinx.coroutines.launch
 
@@ -26,7 +27,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding get() = requireNotNull(_binding)
 
-    private var page: Int = 1
+    private val hospitalAdapter = HospitalAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,18 +35,7 @@ class SearchFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 searchFragmentViewModel.uiState.collect { uiState ->
                     binding.progressBar.isVisible = uiState.isFetchingHospitals
-                    binding.result.text =
-                        if (uiState.messages.isNotEmpty()) {
-                            val msg = uiState.messages.joinToString(",") { it.message }
-
-                            msg
-
-                        } else {
-                            uiState.items.map {
-                                it.hospitalName
-                            }.joinToString(", ")
-                        }
-
+                    hospitalAdapter.setData(uiState.items)
                 }
             }
         }
@@ -71,17 +61,31 @@ class SearchFragment : Fragment() {
 
     private fun initView() {
         binding.apply {
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    searchFragmentViewModel.searchHospitals(query ?: "", 1)
-                    return true
-                }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    return true
-                }
+            rvHospitalList.apply {
+                adapter = hospitalAdapter
 
-            })
+                val linearLayoutManager = LinearLayoutManager(context)
+                layoutManager = linearLayoutManager
+
+                val itemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
+                addItemDecoration(itemDecoration)
+            }
+
+            searchView.apply {
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        searchFragmentViewModel.searchHospitals(query ?: "", 1)
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        return true
+                    }
+                })
+
+                isSubmitButtonEnabled = true
+            }
         }
     }
 }
