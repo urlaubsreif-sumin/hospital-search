@@ -3,11 +3,11 @@
 
 ## 🐬Skills
 - **Language** : Kotlin
-- **Design Pattern** : MVVM
+- **Design Pattern** : MVVM, Repository Pattern
 - **Android Skills**
     - Modularization
     - RecyclerView
-    - Retrofit2 + Tikxml
+    - Room + Paging3 + Retrofit2 + Tikxml
     - *AAC(Android Architecture Components)* : ViewModel, DataBinding
     - StateFlow, Coroutine
 
