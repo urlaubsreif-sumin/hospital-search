@@ -27,9 +27,6 @@ class SearchFragmentViewModel(
     private val hospitalRepository: HospitalRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HospitalListUiState())
-    val uiState: StateFlow<HospitalListUiState> = _uiState.asStateFlow()
-
     private val queryFlow = MutableStateFlow(HospitalQuery())
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -53,14 +50,6 @@ class SearchFragmentViewModel(
                     )
                 }
 
-            }.catch {e ->
-                _uiState.update {
-                    val messages = getMessageFromThrowable(e)
-                    it.copy(
-                        messages = messages,
-                        isFetchingHospitals = false
-                    )
-                }
             }
     }
 
@@ -69,52 +58,6 @@ class SearchFragmentViewModel(
         queryFlow.value = queryFlow.value.copy(yadmNm = name)
     }
 
-    fun searchHospitalsByHospitalName(query: String, page: Int) {
-        _uiState.update {
-            it.copy(isFetchingHospitals = true)
-        }
-
-
-        /*fetchJob?.cancel()
-        fetchJob = viewModelScope.launch {
-            try {
-                val hospitalItemUiStates =
-                    hospitalRepository.getHospitalListByHospitalName(query, page).map {
-                        HospitalItemUiState(
-                            code = it.code,
-                            hospitalName = it.hospitalName ?: "정보 없음",
-                            sidoAddr = it.sidoAddr ?: "정보 없음",
-                            sgguAddr = it.sgguAddr ?: "정보 없음"
-                        )
-                    }
-
-                _uiState.update {
-                    it.copy(
-                        items = hospitalItemUiStates,
-                        isFetchingHospitals = false,
-                        messages = listOf()
-                    )
-                }
-
-            } catch (e: Exception) {
-                _uiState.update {
-                    val messages = getMessageFromThrowable(e)
-                    it.copy(
-                        messages = messages,
-                        isFetchingHospitals = false
-                    )
-                }
-            }
-        }*/
-    }
-
-    private fun getMessageFromThrowable(e: Throwable): List<Message> {
-        val message = when (e) {
-            is IOException -> Message(0, "해당하는 정보가 없습니다.")
-            else -> Message(1, "알 수 없는 오류가 발생했습니다.")
-        }
-        return listOf(message)
-    }
 
     class Factory(
         private val hospitalRepository: HospitalRepository
