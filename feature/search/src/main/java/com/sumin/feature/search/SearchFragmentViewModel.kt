@@ -25,9 +25,6 @@ class SearchFragmentViewModel(
     private val hospitalRepository: HospitalRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HospitalListUiState())
-    val uiState: StateFlow<HospitalListUiState> = _uiState.asStateFlow()
-
     private val queryFlow = MutableStateFlow(HospitalQuery())
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -52,28 +49,14 @@ class SearchFragmentViewModel(
                 }
 
             }.catch { e ->
-                _uiState.update {
-                    val messages = getMessageFromThrowable(e)
-                    it.copy(
-                        messages = messages,
-                        isFetchingHospitals = false
-                    )
-                }
+//                TODO()
+
             }
     }
 
 
     fun onHospitalNameQueryChanged(name: String) {
         queryFlow.value = queryFlow.value.copy(yadmNm = name)
-    }
-
-
-    private fun getMessageFromThrowable(e: Throwable): List<Message> {
-        val message = when (e) {
-            is IOException -> Message(0, "해당하는 정보가 없습니다.")
-            else -> Message(1, "알 수 없는 오류가 발생했습니다.")
-        }
-        return listOf(message)
     }
 
     class Factory(
