@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sumin.feature.search.databinding.FragmentSearchBinding
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
@@ -33,9 +33,8 @@ class SearchFragment : Fragment() {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchFragmentViewModel.uiState.collect { uiState ->
-                    binding.progressBar.isVisible = uiState.isFetchingHospitals
-                    hospitalAdapter.setData(uiState.items)
+                searchFragmentViewModel.queryResult.collectLatest {
+                    hospitalAdapter.submitData(it)
                 }
             }
         }
@@ -75,11 +74,11 @@ class SearchFragment : Fragment() {
             searchView.apply {
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        searchFragmentViewModel.searchHospitals(query ?: "", 1)
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
+                        searchFragmentViewModel.onHospitalNameQueryChanged(newText ?: "")
                         return true
                     }
                 })
