@@ -57,6 +57,8 @@ dependencies {
     val fragment_version = "1.5.5"
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
 
+    val paging_version = "3.1.1"
+    implementation("androidx.paging:paging-runtime:$paging_version")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

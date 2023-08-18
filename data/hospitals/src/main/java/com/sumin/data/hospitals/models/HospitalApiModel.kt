@@ -12,7 +12,7 @@ data class HospitalApiModel(
 
 	/** 암호화된 요양기호 */
 	@PropertyElement(name = "ykiho")
-	val ykiho: String? = null,
+	val ykiho: String,
 
 	/** 종별 코드 */
 	@PropertyElement(name = "clCd")

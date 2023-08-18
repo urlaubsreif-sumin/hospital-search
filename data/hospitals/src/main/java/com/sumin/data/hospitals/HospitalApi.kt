@@ -21,7 +21,7 @@ interface HospitalApi {
         @Query("sidoCd") sidoCode: String? = null,
         @Query("sgguCd") sgguCode: String? = null,
         @Query("emdongNm") emdongNumber: String? = null,
-        @Query("yadmNm") hospitalName: String = "",
+        @Query("yadmNm") hospitalName: String? = null,
         @Query("zipCd") zipCode: String? = null,
         @Query("clCd") clCode: String? = null,
         @Query("dgsbjtCd") dgsbjtCode: String? = null,

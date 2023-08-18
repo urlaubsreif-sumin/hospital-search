@@ -65,6 +65,9 @@ dependencies {
     implementation("com.tickaroo.tikxml:retrofit-converter:$tikxml_version")
     kapt("com.tickaroo.tikxml:processor:$tikxml_version")
 
+    /* Paging3 */
+    val paging_version = "3.1.1"
+    implementation("androidx.paging:paging-runtime:$paging_version")
 
     /* Modules */
     implementation(project(mapOf("path" to ":domain:hospital-list")))

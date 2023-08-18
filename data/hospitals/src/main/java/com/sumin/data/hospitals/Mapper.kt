@@ -5,6 +5,7 @@ import com.sumin.list.hospital.HospitalModel
 
 fun HospitalApiModel.toHospitalModel(): HospitalModel {
     return HospitalModel(
+        id = ykiho,
         code = clCd,
         hospitalName = yadmNm,
         sidoAddr = sidoCdNm,
