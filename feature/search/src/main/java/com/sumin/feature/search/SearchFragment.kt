@@ -93,6 +93,11 @@ class SearchFragment : Fragment() {
 
                 isSubmitButtonEnabled = true
             }
+
+            swipeRefreshLayout.setOnRefreshListener {
+                hospitalAdapter.refresh()
+                swipeRefreshLayout.isRefreshing = false
+            }
         }
     }
 }

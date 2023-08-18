@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.ir.backend.js.compile
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -59,6 +61,8 @@ dependencies {
 
     val paging_version = "3.1.1"
     implementation("androidx.paging:paging-runtime:$paging_version")
+
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
