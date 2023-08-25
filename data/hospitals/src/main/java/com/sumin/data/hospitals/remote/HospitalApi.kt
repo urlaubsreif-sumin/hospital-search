@@ -1,14 +1,11 @@
-package com.sumin.data.hospitals
+package com.sumin.data.hospitals.remote
 
-import com.google.gson.GsonBuilder
-import com.sumin.data.hospitals.models.HospitalListApiModel
-import com.sumin.data.hospitals.models.Response
+import com.sumin.data.hospitals.BuildConfig
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 

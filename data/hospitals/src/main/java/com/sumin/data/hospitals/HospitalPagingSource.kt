@@ -2,13 +2,17 @@ package com.sumin.data.hospitals
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.sumin.data.hospitals.remote.HospitalApi
+import com.sumin.data.hospitals.remote.HospitalApiModel
 import com.sumin.list.hospital.HospitalQuery
 import com.sumin.list.hospital.Constants
+import com.sumin.list.hospital.HospitalDetailModel
 import com.sumin.list.hospital.HospitalModel
 
 class HospitalPagingSource(
     private val backend: HospitalApi,
-    private val query: HospitalQuery
+    private val query: HospitalQuery,
+    private val getHospitalModels: suspend (List<HospitalApiModel>) -> Unit
 ) : PagingSource<Int, HospitalModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, HospitalModel> {
         try {
@@ -26,12 +30,12 @@ class HospitalPagingSource(
                 serviceKey = BuildConfig.API_KEY
             )
 
-            val nextPageItems =
-                response.body?.hospitalListApiModel?.item?.map { it.toHospitalModel() }
-                    ?: emptyList()
+            val items = response.body?.hospitalListApiModel?.item
+                ?: emptyList()
+            getHospitalModels(items)
 
             return LoadResult.Page(
-                data = nextPageItems,
+                data = items.map { it.toHospitalModel() },
                 prevKey = null,
                 nextKey = response.body?.pageNo?.plus(1)
             )

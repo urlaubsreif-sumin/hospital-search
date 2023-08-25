@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sumin.feature.search.databinding.ItemHospitalBinding
 import java.lang.IllegalStateException
 
-class HospitalAdapter: PagingDataAdapter<HospitalItemUiState, RecyclerView.ViewHolder>(UiModelComparator) {
+class HospitalAdapter(
+    private val onItemClick: (String) -> Unit
+): PagingDataAdapter<HospitalItemUiState, RecyclerView.ViewHolder>(UiModelComparator) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
         if(holder is HospitalViewHolder) {
@@ -28,9 +30,10 @@ class HospitalAdapter: PagingDataAdapter<HospitalItemUiState, RecyclerView.ViewH
         }
     }
 
-    class HospitalViewHolder(private val binding: ItemHospitalBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class HospitalViewHolder(private val binding: ItemHospitalBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(hospitalItem: HospitalItemUiState) {
             binding.hospitalItem = hospitalItem
+            binding.root.setOnClickListener { onItemClick(hospitalItem.id) }
         }
     }
 

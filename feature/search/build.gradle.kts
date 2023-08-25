@@ -2,6 +2,8 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -59,6 +61,10 @@ dependencies {
 
     val paging_version = "3.1.1"
     implementation("androidx.paging:paging-runtime:$paging_version")
+
+    val nav_version = "2.5.3"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

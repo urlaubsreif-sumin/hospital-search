@@ -1,19 +1,24 @@
 package com.sumin.feature.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sumin.feature.search.databinding.FragmentSearchBinding
+import com.sumin.list.hospital.HospitalModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -21,19 +26,25 @@ import kotlinx.coroutines.launch
 class SearchFragment : Fragment() {
 
     private val searchFragmentViewModel by viewModels<SearchFragmentViewModel> {
-        provideSearchFragmentViewModel()
+        provideSearchFragmentViewModel(requireContext())
     }
 
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding get() = requireNotNull(_binding)
 
-    private val hospitalAdapter = HospitalAdapter()
+    private val hospitalAdapter = HospitalAdapter { id ->
+        val request = NavDeepLinkRequest.Builder
+            .fromUri("android-app://com.sumin.hospital_detail/hospital_detail_fragment/?hospitalId=$id".toUri())
+            .build()
+        findNavController().navigate(request)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 searchFragmentViewModel.queryResult.collectLatest {
+                    Log.i("[search test]", "PAGING DATA <--- ")
                     hospitalAdapter.submitData(it)
                 }
             }

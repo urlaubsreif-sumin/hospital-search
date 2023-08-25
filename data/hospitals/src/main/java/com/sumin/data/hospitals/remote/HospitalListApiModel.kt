@@ -1,7 +1,6 @@
-package com.sumin.data.hospitals.models
+package com.sumin.data.hospitals.remote
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import com.tickaroo.tikxml.annotation.Element
 import com.tickaroo.tikxml.annotation.PropertyElement
 import com.tickaroo.tikxml.annotation.Xml

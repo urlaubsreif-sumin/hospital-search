@@ -1,4 +1,4 @@
-package com.sumin.data.hospitals.models
+package com.sumin.data.hospitals.remote
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable

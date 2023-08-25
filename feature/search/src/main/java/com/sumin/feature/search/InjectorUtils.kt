@@ -1,20 +1,21 @@
 package com.sumin.feature.search
 
-import com.sumin.data.hospitals.HospitalApi
-import com.sumin.data.hospitals.HospitalLocalDataSourceImpl
-import com.sumin.data.hospitals.HospitalRemoteDataSourceImpl
+import android.content.Context
+import com.sumin.data.hospitals.remote.HospitalApi
+import com.sumin.data.hospitals.local.HospitalLocalDataSourceImpl
+import com.sumin.data.hospitals.remote.HospitalRemoteDataSourceImpl
 import com.sumin.data.hospitals.HospitalRepositoryImpl
 import com.sumin.list.hospital.HospitalRepository
 import kotlinx.coroutines.Dispatchers
 
-fun provideSearchFragmentViewModel(): SearchFragmentViewModel.Factory {
-    return SearchFragmentViewModel.Factory(provideHospitalRepository())
+fun provideSearchFragmentViewModel(context: Context): SearchFragmentViewModel.Factory {
+    return SearchFragmentViewModel.Factory(provideHospitalRepository(context.applicationContext))
 }
 
-private fun provideHospitalRepository(): HospitalRepository {
+private fun provideHospitalRepository(applicationContext: Context): HospitalRepository {
     return HospitalRepositoryImpl(
-        HospitalLocalDataSourceImpl(),
-        HospitalRemoteDataSourceImpl(HospitalApi.create(), Dispatchers.IO)
+        HospitalLocalDataSourceImpl(applicationContext, Dispatchers.IO),
+        HospitalRemoteDataSourceImpl(Dispatchers.IO)
     )
 }
 

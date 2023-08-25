@@ -3,8 +3,8 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -69,8 +69,15 @@ dependencies {
     val paging_version = "3.1.1"
     implementation("androidx.paging:paging-runtime:$paging_version")
 
+    /* Room */
+    val room_version = "2.5.0"
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+
     /* Modules */
     implementation(project(mapOf("path" to ":domain:hospital-list")))
+    implementation(project(mapOf("path" to ":core:database")))
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
