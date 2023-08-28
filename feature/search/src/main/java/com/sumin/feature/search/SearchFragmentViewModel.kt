@@ -1,6 +1,5 @@
 package com.sumin.feature.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -43,7 +42,6 @@ class SearchFragmentViewModel(
             .cachedIn(viewModelScope)
             .map { pagingData ->
                 pagingData.map {
-                    Log.i("[search test]", "UI ITEM ---> ${it.hospitalName}")
                     HospitalItemUiState(
                         id = it.id,
                         code = it.code,

@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{viewmodel.uiState.id}"
+            android:text="@{viewmodel.uiState.hospitalName}"
             android:textColor="@color/black"
             android:hint="병원 이름"
             android:textSize="20sp"

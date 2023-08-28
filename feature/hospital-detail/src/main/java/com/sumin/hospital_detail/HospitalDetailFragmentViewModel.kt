@@ -37,6 +37,11 @@ class HospitalDetailFragmentViewModel(
                 hospitalRepository.getHospitalDetailById(hospitalId!!).collectLatest {hospitalDetailModel ->
                     _uiState.update {
                         it.copy(
+                            id = hospitalDetailModel.id,
+                            code = hospitalDetailModel.code,
+                            hospitalName = hospitalDetailModel.hospitalName ?: "정보없음",
+                            sidoAddr = hospitalDetailModel.sidoAddr ?: "정보없음",
+                            sgguAddr = hospitalDetailModel.sgguAddr ?: "정보없음",
                             telNo = hospitalDetailModel.telNo ?: "정보없음",
                             homepageUrl = hospitalDetailModel.hompageUrl ?: "정보없음",
                             estbDate = hospitalDetailModel.estbDate ?: "정보없음",
