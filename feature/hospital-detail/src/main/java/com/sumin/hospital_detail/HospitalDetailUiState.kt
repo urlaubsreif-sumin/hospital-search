@@ -3,14 +3,14 @@ package com.sumin.hospital_detail
 data class HospitalDetailUiState(
     val id: String = "정보없음",
     val codeName: String = "정보없음",
-    val hospitalName: String = "정보없음",
-    val sidoAddr: String = "정보없음",
-    val sgguAddr: String = "정보없음",
+    val hospitalName: String? = null,
+    val sidoAddr: String? = null,
+    val sgguAddr: String? = null,
 
-    val telNo: String = "정보없음",
-    val homepageUrl: String = "정보없음",
-    val estbDate: String = "정보없음",
-    val addr: String = "정보없음",
+    val telNo: String? = null,
+    val homepageUrl: String? = null,
+    val estbDate: String? = null,
+    val addr: String? = null,
 
     val message: String? = null,
     val isFetchingHospitalDetail: Boolean = false

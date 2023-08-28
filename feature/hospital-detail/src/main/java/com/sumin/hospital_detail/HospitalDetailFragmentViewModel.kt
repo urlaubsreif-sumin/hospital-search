@@ -38,13 +38,13 @@ class HospitalDetailFragmentViewModel(
                         it.copy(
                             id = hospitalDetailModel.id,
                             codeName = hospitalDetailModel.codeName,
-                            hospitalName = hospitalDetailModel.hospitalName ?: "정보없음",
-                            sidoAddr = hospitalDetailModel.sidoAddr ?: "정보없음",
-                            sgguAddr = hospitalDetailModel.sgguAddr ?: "정보없음",
-                            telNo = hospitalDetailModel.telNo ?: "정보없음",
-                            homepageUrl = hospitalDetailModel.hompageUrl ?: "정보없음",
-                            estbDate = hospitalDetailModel.estbDate ?: "정보없음",
-                            addr = hospitalDetailModel.addr ?: "정보없음",
+                            hospitalName = hospitalDetailModel.hospitalName,
+                            sidoAddr = hospitalDetailModel.sidoAddr,
+                            sgguAddr = hospitalDetailModel.sgguAddr,
+                            telNo = hospitalDetailModel.telNo,
+                            homepageUrl = hospitalDetailModel.hompageUrl,
+                            estbDate = hospitalDetailModel.estbDate,
+                            addr = hospitalDetailModel.addr,
 
                             isFetchingHospitalDetail = false
                         )
