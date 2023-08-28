@@ -44,7 +44,7 @@ class SearchFragmentViewModel(
                 pagingData.map {
                     HospitalItemUiState(
                         id = it.id,
-                        code = it.code,
+                        codeName = it.codeName,
                         hospitalName = it.hospitalName ?: "정보 없음",
                         sidoAddr = it.sidoAddr ?: "정보 없음",
                         sgguAddr = it.sgguAddr ?: "정보 없음"

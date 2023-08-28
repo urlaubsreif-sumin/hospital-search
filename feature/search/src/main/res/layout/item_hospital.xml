@@ -20,7 +20,7 @@
             android:textAlignment="center"
             android:hint="종별코드"
             android:textColorHint="@color/white"
-            android:text="@{hospitalItem.code}"
+            android:text="@{hospitalItem.codeName}"
             android:textColor="@color/white"
             android:background="@drawable/bg_hospital_code"
             app:layout_constraintTop_toTopOf="parent"

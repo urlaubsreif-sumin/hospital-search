@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -38,7 +37,7 @@ class HospitalDetailFragmentViewModel(
                     _uiState.update {
                         it.copy(
                             id = hospitalDetailModel.id,
-                            code = hospitalDetailModel.code,
+                            codeName = hospitalDetailModel.codeName,
                             hospitalName = hospitalDetailModel.hospitalName ?: "정보없음",
                             sidoAddr = hospitalDetailModel.sidoAddr ?: "정보없음",
                             sgguAddr = hospitalDetailModel.sgguAddr ?: "정보없음",

@@ -8,7 +8,7 @@ import com.sumin.list.hospital.HospitalModel
 fun HospitalApiModel.toHospitalModel(): HospitalModel {
     return HospitalModel(
         id = ykiho,
-        code = clCd,
+        codeName = clCdNm,
         hospitalName = yadmNm,
         sidoAddr = sidoCdNm,
         sgguAddr = sgguCdNm
@@ -18,7 +18,7 @@ fun HospitalApiModel.toHospitalModel(): HospitalModel {
 fun HospitalApiModel.toHospitalDetailModel(): HospitalDetailModel {
     return HospitalDetailModel(
         id = ykiho,
-        code = clCd,
+        codeName = clCdNm,
         hospitalName = yadmNm,
         sidoAddr = sidoCdNm,
         sgguAddr = sgguCdNm,
@@ -32,7 +32,7 @@ fun HospitalApiModel.toHospitalDetailModel(): HospitalDetailModel {
 fun HospitalEntity.toHospitalModel(): HospitalModel {
     return HospitalModel(
         id = ykiho,
-        code = clCd,
+        codeName = clCd,
         hospitalName = yadmNm,
         sidoAddr = sidoCdNm,
         sgguAddr = sgguCdNm
@@ -42,7 +42,7 @@ fun HospitalEntity.toHospitalModel(): HospitalModel {
 fun HospitalEntity.toHospitalDetailModel(): HospitalDetailModel {
     return HospitalDetailModel(
         id = ykiho,
-        code = clCd,
+        codeName = clCd,
         hospitalName = yadmNm,
         sidoAddr = sidoCdNm,
         sgguAddr = sgguCdNm,
@@ -56,7 +56,7 @@ fun HospitalEntity.toHospitalDetailModel(): HospitalDetailModel {
 fun HospitalDetailModel.toHospitalEntity(): HospitalEntity {
     return HospitalEntity(
         ykiho = id,
-        clCd = code,
+        clCd = codeName,
         yadmNm = hospitalName,
         sidoCdNm = sidoAddr,
         sgguCdNm = sgguAddr,
