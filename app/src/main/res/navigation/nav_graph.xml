@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchFragment">
+
+    <activity
+        android:id="@+id/webViewActivity"
+        android:name="com.sumin.web.WebViewActivity"
+        android:label="WebViewActivity"
+        tools:layout="@layout/activity_web_view"/>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.sumin.feature.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_hospitalDetailFragment"
+            app:destination="@id/hospitalDetailFragment">
+            <argument
+                app:argType="string"
+                android:name="hospitalId"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/hospitalDetailFragment"
+        android:name="com.sumin.hospital_detail.HospitalDetailFragment"
+        android:label="HospitalDetailFragment"
+        tools:layout="@layout/fragment_hospital_detail">
+        <action
+            android:id="@+id/action_hospitalDetailFragment_to_webViewActivity"
+            app:destination="@id/webViewActivity">
+            <argument
+                app:argType="string"
+                app:nullable="true"
+                android:name="hospitalUrl"/>
+        </action>
+        <action
+            android:id="@+id/action_hospitalDetailFragment_to_searchFragment"
+            app:destination="@id/searchFragment">
+        </action>
+    </fragment>
+</navigation>

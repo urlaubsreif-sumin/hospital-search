@@ -18,6 +18,12 @@ Android Developers 모듈화 가이드 기반
 - **Domain** : Business Logic, Models
 - **Feature** : UI Logic(with ViewModel), UI components
 
+## 🐳Release Notes
+### [v.1.0.0]
+- 검색 창을 통해 전국의 병원을 검색할 수 있어요.
+- 병원 주소, 홈페이지, 전화 번호 등 병원 상세 정보를 확인할 수 있어요.
+- 앱에서 바로 전화를 걸고, 병원 홈페이지를 볼 수 있어요.
+
 * * *
 ### *Reference*
 * 공공API: https://www.data.go.kr/data/15001698/openapi.do

@@ -15,4 +15,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "HospitalSearch"
 include(":app")
- 
+include(":data:hospitals")
+include(":feature:search")
+include(":domain:hospital-list")
+include(":feature:hospital-detail")
+include(":core:database")
+include(":feature:web")
+include(":base:navigation")

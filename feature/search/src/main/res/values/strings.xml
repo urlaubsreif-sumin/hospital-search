@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">search</string>
+    <string name="search_view_hint">병원 명을 입력해 주세요</string>
+</resources>

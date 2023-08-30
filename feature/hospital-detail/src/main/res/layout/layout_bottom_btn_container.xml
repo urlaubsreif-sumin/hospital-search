@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+        <variable
+            name="phoneNum"
+            type="String" />
+        <variable
+            name="homepageUrl"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="10dp"
+        android:padding="7dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <CheckedTextView
+            android:id="@+id/btn_call"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="전화걸기"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:padding="10dp"
+            android:layout_margin="3dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:background="@drawable/bg_bottom_toggle"
+            android:checked="@{phoneNum != null}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_homepage"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <CheckedTextView
+            android:id="@+id/btn_homepage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="홈페이지"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:padding="10dp"
+            android:layout_margin="3dp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_bottom_toggle"
+            android:checked="@{homepageUrl != null}"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@id/btn_call"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
