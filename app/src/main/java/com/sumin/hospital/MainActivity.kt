@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
