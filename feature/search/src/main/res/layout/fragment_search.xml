@@ -45,14 +45,25 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_hospital_list"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="16dp"
-            tools:listitem="@layout/item_hospital"
             app:layout_constraintTop_toBottomOf="@id/tool_bar"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hospital_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="16dp"
+                tools:listitem="@layout/item_hospital"
+                app:layout_constraintTop_toBottomOf="@id/tool_bar"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"

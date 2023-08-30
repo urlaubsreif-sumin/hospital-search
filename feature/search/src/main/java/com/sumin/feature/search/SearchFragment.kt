@@ -39,14 +39,6 @@ class SearchFragment : Fragment(), Navigatable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchFragmentViewModel.queryResult.collectLatest {
-                    Log.i("[search test]", "PAGING DATA <--- ")
-                    hospitalAdapter.submitData(it)
-                }
-            }
-        }
     }
 
     override fun onCreateView(
@@ -66,9 +58,18 @@ class SearchFragment : Fragment(), Navigatable {
         super.onViewCreated(view, savedInstanceState)
         initView()
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            hospitalAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.progressBar.isVisible = loadStates.refresh is LoadState.Loading
+        viewLifecycleOwner.lifecycleScope.apply {
+            launch {
+                searchFragmentViewModel.queryResult.collectLatest {
+                    Log.i("[search test]", "PAGING DATA <--- ")
+                    hospitalAdapter.submitData(it)
+                }
+            }
+
+            launch {
+                hospitalAdapter.loadStateFlow.collectLatest { loadStates ->
+                    binding.progressBar.isVisible = loadStates.refresh is LoadState.Loading
+                }
             }
         }
     }
@@ -99,6 +100,11 @@ class SearchFragment : Fragment(), Navigatable {
                 })
 
                 isSubmitButtonEnabled = true
+            }
+
+            swipeRefreshLayout.setOnRefreshListener {
+                hospitalAdapter.refresh()
+                swipeRefreshLayout.isRefreshing = false
             }
         }
     }
