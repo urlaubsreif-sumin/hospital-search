@@ -1,5 +1,6 @@
 package com.sumin.data.hospitals
 
+import android.util.Log
 import com.sumin.data.hospitals.remote.HospitalApiModel
 import com.sumin.database.HospitalEntity
 import com.sumin.list.hospital.HospitalDetailModel
@@ -23,7 +24,7 @@ fun HospitalApiModel.toHospitalDetailModel(): HospitalDetailModel {
         sidoAddr = sidoCdNm,
         sgguAddr = sgguCdNm,
         telNo = telno,
-        hompageUrl = hospUrl,
+        hompageUrl = hospUrl ?: "https://google.com", // for test
         estbDate = estbDd,
         addr = addr
     )

@@ -8,7 +8,13 @@ plugins {
 }
 
 buildscript {
+    repositories {
+        google()
+    }
     dependencies {
         classpath(kotlin("gradle-plugin", version = "1.9.0"))
+
+        val nav_version = "2.5.3"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
     }
 }

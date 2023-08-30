@@ -1,27 +1,23 @@
 package com.sumin.hospital_detail
 
-import android.os.Build
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.sumin.hospital_detail.databinding.FragmentHospitalDetailBinding
-import com.sumin.list.hospital.HospitalModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import com.sumin.navigation.Navigatable
+import com.sumin.navigation.NavigatorMediator
+import com.sumin.navigation.Route
 
-private const val ARG_HOSPITAL = "hospital"
 private const val ARG_HOSPITAL_ID = "hospitalId"
 
-class HospitalDetailFragment : Fragment() {
+class HospitalDetailFragment : Fragment(), Navigatable {
     private var hospitalId: String? = null
 
     private var _binding: FragmentHospitalDetailBinding? = null
@@ -54,8 +50,23 @@ class HospitalDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+        initView()
+    }
+
+    private fun initView() {
+        binding.apply {
+            toolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+            bottomBtnContainer.btnCall.setOnClickListener {
+                val telNo = viewModel.uiState.value.telNo
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$telNo"))
+                startActivity(intent)
+            }
+            bottomBtnContainer.btnHomepage.setOnClickListener {
+                val url = viewModel.uiState.value.homepageUrl
+                NavigatorMediator.navigate(Route.ActionHospitalDetailFragmentToWebViewActivity(url))
+            }
         }
     }
 }

@@ -40,13 +40,15 @@ android {
 }
 
 dependencies {
+    /* Modules */
+    implementation(project(mapOf("path" to ":domain:hospital-list")))
+    implementation(project(mapOf("path" to ":data:hospitals")))
+    implementation(project(mapOf("path" to ":base:navigation")))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation(project(mapOf("path" to ":domain:hospital-list")))
-    implementation(project(mapOf("path" to ":data:hospitals")))
 
     val lifecycle_version = "2.5.1"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")

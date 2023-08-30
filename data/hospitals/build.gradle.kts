@@ -48,6 +48,11 @@ fun getApiKey(propertyKey: String): String {
 }
 
 dependencies {
+    /* Modules */
+    implementation(project(mapOf("path" to ":domain:hospital-list")))
+    implementation(project(mapOf("path" to ":core:database")))
+
+    
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
@@ -74,10 +79,6 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
-
-    /* Modules */
-    implementation(project(mapOf("path" to ":domain:hospital-list")))
-    implementation(project(mapOf("path" to ":core:database")))
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

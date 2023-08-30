@@ -2,6 +2,7 @@ package com.sumin.data.hospitals.remote
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
+import android.util.Log
 import com.google.gson.annotations.SerializedName
 import com.tickaroo.tikxml.annotation.PropertyElement
 import com.tickaroo.tikxml.annotation.Xml
@@ -134,4 +135,8 @@ data class HospitalApiModel(
 	@PropertyElement(name = "pnursCnt")
 	val pnursCnt: String? = null,
 
-) : Parcelable
+) : Parcelable {
+	init {
+		Log.i("[mapper test]", "HospitalApiModel ---> ${yadmNm} ${hospUrl}")
+	}
+}

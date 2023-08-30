@@ -17,7 +17,8 @@ class HospitalRepositoryImpl(
 
     override fun getHospitalListByQuery(query: HospitalQuery): PagingSource<Int, HospitalModel> {
         return hospitalRemoteDataSource.getHospitalPagingByQuery(query) { hospitalApiModels ->
-            val hospitalDetailModels = hospitalApiModels.map { it.toHospitalDetailModel() }
+            val hospitalDetailModels = hospitalApiModels.map {
+                it.toHospitalDetailModel() }
             addHospitalDetails(hospitalDetailModels)
         }
     }

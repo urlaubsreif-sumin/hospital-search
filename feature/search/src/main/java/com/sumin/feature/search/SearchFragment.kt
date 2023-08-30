@@ -2,30 +2,27 @@ package com.sumin.feature.search
 
 import android.os.Bundle
 import android.util.Log
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sumin.feature.search.databinding.FragmentSearchBinding
-import com.sumin.list.hospital.HospitalModel
+import com.sumin.navigation.Navigatable
+import com.sumin.navigation.NavigatorMediator
+import com.sumin.navigation.Route
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), Navigatable {
 
     private val searchFragmentViewModel by viewModels<SearchFragmentViewModel> {
         provideSearchFragmentViewModel(requireContext())
@@ -35,10 +32,11 @@ class SearchFragment : Fragment() {
     private val binding: FragmentSearchBinding get() = requireNotNull(_binding)
 
     private val hospitalAdapter = HospitalAdapter { id ->
-        val request = NavDeepLinkRequest.Builder
+        /*val request = NavDeepLinkRequest.Builder
             .fromUri("android-app://com.sumin.hospital_detail/hospital_detail_fragment/?hospitalId=$id".toUri())
             .build()
-        findNavController().navigate(request)
+        findNavController().navigate(request)*/
+        NavigatorMediator.navigate(Route.ActionSearchFragmentToHospitalDetailFragment(id))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
