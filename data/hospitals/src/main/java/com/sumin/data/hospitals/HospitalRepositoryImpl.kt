@@ -9,8 +9,9 @@ import com.sumin.list.hospital.HospitalModel
 import com.sumin.list.hospital.HospitalQuery
 import com.sumin.list.hospital.HospitalRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class HospitalRepositoryImpl(
+class HospitalRepositoryImpl @Inject constructor(
     private val hospitalLocalDataSource: HospitalLocalDataSource,
     private val hospitalRemoteDataSource: HospitalRemoteDataSource
 ) : HospitalRepository {
