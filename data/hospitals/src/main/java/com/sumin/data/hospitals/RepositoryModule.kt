@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DiModule {
+class RepositoryModule {
 
     @Singleton
     @Provides

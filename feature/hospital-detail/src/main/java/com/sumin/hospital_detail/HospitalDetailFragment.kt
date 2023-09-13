@@ -25,9 +25,7 @@ class HospitalDetailFragment : Fragment(), Navigatable {
     private var _binding: FragmentHospitalDetailBinding? = null
     private val binding: FragmentHospitalDetailBinding get() = requireNotNull(_binding)
 
-    private val viewModel by viewModels<HospitalDetailFragmentViewModel> {
-        provideHospitalDetailFragmentViewModel(requireContext())
-    }
+    private val viewModel by viewModels<HospitalDetailFragmentViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
