@@ -14,9 +14,11 @@ import com.sumin.hospital_detail.databinding.FragmentHospitalDetailBinding
 import com.sumin.navigation.Navigatable
 import com.sumin.navigation.NavigatorMediator
 import com.sumin.navigation.Route
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val ARG_HOSPITAL_ID = "hospitalId"
 
+@AndroidEntryPoint
 class HospitalDetailFragment : Fragment(), Navigatable {
     private var hospitalId: String? = null
 

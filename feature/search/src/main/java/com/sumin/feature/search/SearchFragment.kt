@@ -20,15 +20,15 @@ import com.sumin.feature.search.databinding.FragmentSearchBinding
 import com.sumin.navigation.Navigatable
 import com.sumin.navigation.NavigatorMediator
 import com.sumin.navigation.Route
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class SearchFragment : Fragment(), Navigatable {
 
-    private val searchFragmentViewModel by viewModels<SearchFragmentViewModel> {
-        provideSearchFragmentViewModel(requireContext())
-    }
+    private val searchFragmentViewModel by viewModels<SearchFragmentViewModel>()
 
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding get() = requireNotNull(_binding)

@@ -9,7 +9,9 @@ import androidx.navigation.fragment.NavHostFragment
 import com.sumin.hospital.databinding.ActivityMainBinding
 import com.sumin.navigation.Navigatable
 import com.sumin.navigation.NavigatorMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding get() = requireNotNull(_binding)

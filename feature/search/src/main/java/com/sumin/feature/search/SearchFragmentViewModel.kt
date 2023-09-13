@@ -10,6 +10,7 @@ import androidx.paging.map
 import com.sumin.list.hospital.Constants
 import com.sumin.list.hospital.HospitalQuery
 import com.sumin.list.hospital.HospitalRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,8 +21,10 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import java.io.IOException
+import javax.inject.Inject
 
-class SearchFragmentViewModel(
+@HiltViewModel
+class SearchFragmentViewModel @Inject constructor(
     private val hospitalRepository: HospitalRepository
 ) : ViewModel() {
 
@@ -57,14 +60,5 @@ class SearchFragmentViewModel(
 
     fun onHospitalNameQueryChanged(name: String) {
         queryFlow.value = queryFlow.value.copy(yadmNm = name)
-    }
-
-    class Factory(
-        private val hospitalRepository: HospitalRepository
-    ) : ViewModelProvider.NewInstanceFactory() {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SearchFragmentViewModel(hospitalRepository) as T
-        }
     }
 }
