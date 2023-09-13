@@ -5,17 +5,21 @@ plugins {
     id("com.google.devtools.ksp") version "1.8.10-1.0.9" apply false
     kotlin("jvm") version "1.9.0" apply false
     id("com.android.library") version "8.1.1" apply false
-    id("com.google.dagger.hilt.android") version "2.44" apply false
+    id("com.google.dagger.hilt.android") version "2.48" apply false
 }
 
 buildscript {
     repositories {
         google()
+        mavenCentral()
     }
     dependencies {
         classpath(kotlin("gradle-plugin", version = "1.9.0"))
 
         val nav_version = "2.5.3"
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+
+        val hilt_version = "2.48"
+        classpath("com.google.dagger:hilt-android-gradle-plugin:$hilt_version")
     }
 }
