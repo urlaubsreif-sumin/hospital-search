@@ -49,6 +49,7 @@ dependencies {
     implementation(project(mapOf("path" to ":feature:web")))
     implementation(project(mapOf("path" to ":feature:hospital-detail")))
     implementation(project(mapOf("path" to ":base:navigation")))
+    implementation(project(mapOf("path" to ":data:hospitals")))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

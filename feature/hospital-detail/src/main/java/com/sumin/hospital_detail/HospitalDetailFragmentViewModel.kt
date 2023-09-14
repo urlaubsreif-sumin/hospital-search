@@ -1,7 +1,6 @@
 package com.sumin.hospital_detail
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.sumin.list.hospital.HospitalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,23 +35,24 @@ class HospitalDetailFragmentViewModel @Inject constructor(
 
             fetchJob?.cancel()
             fetchJob = viewModelScope.launch {
-                hospitalRepository.getHospitalDetailById(hospitalId!!).collectLatest {hospitalDetailModel ->
-                    _uiState.update {
-                        it.copy(
-                            id = hospitalDetailModel.id,
-                            codeName = hospitalDetailModel.codeName,
-                            hospitalName = hospitalDetailModel.hospitalName,
-                            sidoAddr = hospitalDetailModel.sidoAddr,
-                            sgguAddr = hospitalDetailModel.sgguAddr,
-                            telNo = hospitalDetailModel.telNo,
-                            homepageUrl = hospitalDetailModel.hompageUrl,
-                            estbDate = hospitalDetailModel.estbDate,
-                            addr = hospitalDetailModel.addr,
+                hospitalRepository.getHospitalDetailById(hospitalId!!)
+                    .collectLatest { hospitalDetailModel ->
+                        _uiState.update {
+                            it.copy(
+                                id = hospitalDetailModel.id,
+                                codeName = hospitalDetailModel.codeName,
+                                hospitalName = hospitalDetailModel.hospitalName,
+                                sidoAddr = hospitalDetailModel.sidoAddr,
+                                sgguAddr = hospitalDetailModel.sgguAddr,
+                                telNo = hospitalDetailModel.telNo,
+                                homepageUrl = hospitalDetailModel.hompageUrl,
+                                estbDate = hospitalDetailModel.estbDate,
+                                addr = hospitalDetailModel.addr,
 
-                            isFetchingHospitalDetail = false
-                        )
+                                isFetchingHospitalDetail = false
+                            )
+                        }
                     }
-                }
             }
 
         } catch (e: Exception) {
@@ -62,15 +62,6 @@ class HospitalDetailFragmentViewModel @Inject constructor(
                     isFetchingHospitalDetail = false
                 )
             }
-        }
-    }
-
-    class Factory(
-        private val hospitalRepository: HospitalRepository
-    ) :
-        ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return HospitalDetailFragmentViewModel(hospitalRepository) as T
         }
     }
 }
