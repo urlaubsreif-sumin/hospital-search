@@ -7,22 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import com.sumin.hospital.databinding.ActivityMainBinding
-import com.sumin.navigation.Navigatable
+import com.sumin.navigation.Navigator
 import com.sumin.navigation.NavigatorMediator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var navigator: Navigator
+
     private val binding: ActivityMainBinding get() = requireNotNull(_binding)
     private var _binding: ActivityMainBinding? = null
-
-    private val navigatorHolder = NavControllerHolder()
-    private val navController by lazy {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-        navHostFragment.navController
-    }
 
     private var backPressedTime = 0L
     private val backPressedCallback = object: OnBackPressedCallback(true) {
@@ -41,25 +38,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         onBackPressedDispatcher.addCallback(backPressedCallback)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        NavigatorMediator.connect(navigatorHolder)
-    }
-
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        navigatorHolder.setNavController(navController)
-    }
-
-    override fun onPause() {
-        navigatorHolder.removeNavController()
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        NavigatorMediator.disconnect()
     }
 }

@@ -15,6 +15,7 @@ import com.sumin.navigation.Navigatable
 import com.sumin.navigation.NavigatorMediator
 import com.sumin.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 private const val ARG_HOSPITAL_ID = "hospitalId"
 
@@ -26,6 +27,9 @@ class HospitalDetailFragment : Fragment(), Navigatable {
     private val binding: FragmentHospitalDetailBinding get() = requireNotNull(_binding)
 
     private val viewModel : HospitalDetailFragmentViewModel by viewModels()
+
+    @Inject
+    lateinit var navigatorMediator: NavigatorMediator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +69,7 @@ class HospitalDetailFragment : Fragment(), Navigatable {
             }
             bottomBtnContainer.btnHomepage.setOnClickListener {
                 val url = viewModel.uiState.value.homepageUrl
-                NavigatorMediator.navigate(Route.ActionHospitalDetailFragmentToWebViewActivity(url))
+                navigatorMediator.navigate(Route.ActionHospitalDetailFragmentToWebViewActivity(url))
             }
         }
     }

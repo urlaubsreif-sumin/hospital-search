@@ -48,6 +48,7 @@ dependencies {
     implementation(project(mapOf("path" to ":feature:search")))
     implementation(project(mapOf("path" to ":feature:web")))
     implementation(project(mapOf("path" to ":feature:hospital-detail")))
+    implementation(project(mapOf("path" to ":domain:hospital-list")))
     implementation(project(mapOf("path" to ":base:navigation")))
     implementation(project(mapOf("path" to ":data:hospitals")))
 

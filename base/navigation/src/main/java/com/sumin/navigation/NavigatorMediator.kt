@@ -1,20 +1,11 @@
 package com.sumin.navigation
 
 import android.util.Log
+import javax.inject.Inject
 
-object NavigatorMediator {
-    private var navigator: Navigator? = null
-
-    fun connect(navigator: Navigator) {
-        this.navigator = navigator
-    }
-
-    fun disconnect() {
-        this.navigator = null
-    }
+class NavigatorMediator @Inject constructor(private val navigator: Navigator) {
 
     fun navigate(route: Route) {
-        Log.i("[navigate test]", "NavigatorMediator.navigate -> ${route.toString()}")
-        navigator?.navigate(route)
+        navigator.navigate(route)
     }
 }

@@ -33,8 +33,11 @@ class SearchFragment : Fragment(), Navigatable {
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding get() = requireNotNull(_binding)
 
+    @Inject
+    lateinit var navigatorMediator: NavigatorMediator
+
     private val hospitalAdapter = HospitalAdapter { id ->
-        NavigatorMediator.navigate(Route.ActionSearchFragmentToHospitalDetailFragment(id))
+        navigatorMediator.navigate(Route.ActionSearchFragmentToHospitalDetailFragment(id))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
