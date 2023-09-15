@@ -4,10 +4,9 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.sumin.data.hospitals.remote.HospitalApi
 import com.sumin.data.hospitals.remote.HospitalApiModel
-import com.sumin.list.hospital.HospitalQuery
 import com.sumin.list.hospital.Constants
-import com.sumin.list.hospital.HospitalDetailModel
 import com.sumin.list.hospital.HospitalModel
+import com.sumin.list.hospital.HospitalQuery
 
 class HospitalPagingSource(
     private val backend: HospitalApi,

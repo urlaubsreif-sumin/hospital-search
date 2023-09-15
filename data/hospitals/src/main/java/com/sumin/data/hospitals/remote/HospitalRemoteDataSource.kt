@@ -9,7 +9,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 interface HospitalRemoteDataSource {
     fun getHospitalPagingByQuery(
         query: HospitalQuery,
-        getHospitalModels: suspend (List<HospitalApiModel>) -> Unit): PagingSource<Int, HospitalModel>
+        getHospitalModels: suspend (List<HospitalApiModel>) -> Unit
+    ): PagingSource<Int, HospitalModel>
 }
 
 class HospitalRemoteDataSourceImpl(

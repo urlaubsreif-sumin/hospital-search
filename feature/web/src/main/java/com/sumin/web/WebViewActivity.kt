@@ -6,10 +6,9 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.sumin.navigation.Navigatable
 import com.sumin.web.databinding.ActivityWebViewBinding
 
-class WebViewActivity : AppCompatActivity(), Navigatable {
+class WebViewActivity : AppCompatActivity() {
     private val KEY_URL = "hospitalUrl"
 
     private val binding get() = requireNotNull(_binding)

@@ -24,7 +24,7 @@ data class Header(
 
     @PropertyElement(name = "resultMsg")
     val resultMsg: String
-): Parcelable
+) : Parcelable
 
 @Parcelize
 @Xml(name = "body")
@@ -49,4 +49,4 @@ data class HospitalListApiModel(
     @Element(name = "item")
     val item: List<HospitalApiModel>
 
-): Parcelable
+) : Parcelable

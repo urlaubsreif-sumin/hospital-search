@@ -10,14 +10,11 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sumin.feature.search.databinding.FragmentSearchBinding
-import com.sumin.navigation.Navigatable
 import com.sumin.navigation.NavigatorMediator
 import com.sumin.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), Navigatable {
+class SearchFragment : Fragment() {
 
     private val searchFragmentViewModel by viewModels<SearchFragmentViewModel>()
 
@@ -38,10 +35,6 @@ class SearchFragment : Fragment(), Navigatable {
 
     private val hospitalAdapter = HospitalAdapter { id ->
         navigatorMediator.navigate(Route.ActionSearchFragmentToHospitalDetailFragment(id))
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sumin.hospital_detail.databinding.FragmentHospitalDetailBinding
-import com.sumin.navigation.Navigatable
 import com.sumin.navigation.NavigatorMediator
 import com.sumin.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +19,7 @@ import javax.inject.Inject
 private const val ARG_HOSPITAL_ID = "hospitalId"
 
 @AndroidEntryPoint
-class HospitalDetailFragment : Fragment(), Navigatable {
+class HospitalDetailFragment : Fragment() {
     private var hospitalId: String? = null
 
     private var _binding: FragmentHospitalDetailBinding? = null

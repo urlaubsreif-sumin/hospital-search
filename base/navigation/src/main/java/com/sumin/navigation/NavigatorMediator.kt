@@ -1,6 +1,5 @@
 package com.sumin.navigation
 
-import android.util.Log
 import javax.inject.Inject
 
 class NavigatorMediator @Inject constructor(private val navigator: Navigator) {
