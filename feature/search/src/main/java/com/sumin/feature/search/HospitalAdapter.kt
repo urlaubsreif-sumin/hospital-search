@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.sumin.feature.search.databinding.ItemHospitalBinding
+import com.sumin.feature.search.databinding.ItemHospitalNewBinding
 
 class HospitalAdapter(
     private val onItemClick: (String) -> Unit
@@ -19,7 +19,7 @@ class HospitalAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
-            ItemHospitalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemHospitalNewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HospitalViewHolder(binding)
     }
 
@@ -30,7 +30,7 @@ class HospitalAdapter(
         }
     }
 
-    inner class HospitalViewHolder(private val binding: ItemHospitalBinding) :
+    inner class HospitalViewHolder(private val binding: ItemHospitalNewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(hospitalItem: HospitalItemUiState) {
             binding.hospitalItem = hospitalItem

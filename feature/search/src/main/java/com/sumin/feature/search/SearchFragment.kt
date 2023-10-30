@@ -1,5 +1,6 @@
 package com.sumin.feature.search
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,8 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.sumin.feature.search.databinding.FragmentSearchBinding
 import com.sumin.navigation.NavigatorMediator
 import com.sumin.navigation.Route
@@ -76,10 +76,11 @@ class SearchFragment : Fragment() {
             rvHospitalList.apply {
                 adapter = hospitalAdapter
 
-                val linearLayoutManager = LinearLayoutManager(context)
-                layoutManager = linearLayoutManager
-
-                val itemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
+//                val linearLayoutManager = LinearLayoutManager(context)
+//                layoutManager = linearLayoutManager
+//
+//                val itemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
+                val itemDecoration = GridSpacingItemDecorator(16)
                 addItemDecoration(itemDecoration)
             }
 
@@ -102,6 +103,22 @@ class SearchFragment : Fragment() {
                 hospitalAdapter.refresh()
                 swipeRefreshLayout.isRefreshing = false
             }
+        }
+    }
+
+    internal class GridSpacingItemDecorator(private val padding: Int) :
+        RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            super.getItemOffsets(outRect, view, parent, state)
+            outRect.top = padding
+            outRect.bottom = padding
+            outRect.left = padding
+            outRect.right = padding
         }
     }
 }

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
         <variable
             name="hospitalItem"
             type="com.sumin.feature.search.HospitalItemUiState" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="7dp">
@@ -16,15 +18,15 @@
             android:id="@+id/tv_hospital_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textAlignment="center"
-            android:hint="종별코드"
-            android:textColorHint="@color/white"
-            android:text="@{hospitalItem.codeName}"
-            android:textColor="@color/white"
             android:background="@drawable/bg_hospital_code"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:hint="종별코드"
+            android:padding="3dp"
+            android:text="@{hospitalItem.codeName}"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_hospital_name"
@@ -32,13 +34,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:hint="병원 명"
-            android:textColorHint="@color/black"
             android:text="@{hospitalItem.hospitalName}"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="17sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/tv_hospital_code"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_hospital_code" />
 
         <TextView
             android:id="@+id/tv_sido_addr"
@@ -46,11 +48,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:hint="{시도}"
-            android:textColorHint="@color/design_default_color_on_secondary"
             android:text="@{hospitalItem.sidoAddr}"
             android:textColor="@color/design_default_color_on_secondary"
-            app:layout_constraintTop_toBottomOf="@id/tv_hospital_name"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:textColorHint="@color/design_default_color_on_secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_hospital_name" />
 
         <TextView
             android:id="@+id/tv_sggu_addr"
@@ -58,11 +60,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:hint="{시군구}"
-            android:textColorHint="@color/design_default_color_on_secondary"
             android:text="@{hospitalItem.sgguAddr}"
             android:textColor="@color/design_default_color_on_secondary"
-            app:layout_constraintTop_toBottomOf="@id/tv_hospital_name"
-            app:layout_constraintStart_toEndOf="@id/tv_sido_addr"/>
+            android:textColorHint="@color/design_default_color_on_secondary"
+            app:layout_constraintStart_toEndOf="@id/tv_sido_addr"
+            app:layout_constraintTop_toBottomOf="@id/tv_hospital_name" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
