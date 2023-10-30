@@ -44,6 +44,7 @@
                 android:textColorHint="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold"
+                android:maxLines="2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
