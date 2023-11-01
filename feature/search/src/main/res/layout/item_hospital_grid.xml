@@ -73,6 +73,7 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_hospital_name" />
 
             <ToggleButton
+                android:id="@+id/btn_favorite"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@drawable/favorite_hospital_selector"

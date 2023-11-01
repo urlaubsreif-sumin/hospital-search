@@ -25,7 +25,7 @@ class HospitalAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (peek(position)) {
-            is HospitalItemUiState -> R.layout.item_hospital_linear
+            is HospitalItemUiState -> R.layout.item_hospital_grid
             else -> throw IllegalStateException("Unknown View")
         }
     }
