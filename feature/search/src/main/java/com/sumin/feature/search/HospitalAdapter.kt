@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sumin.feature.search.databinding.ItemHospitalGridBinding
 
 class HospitalAdapter(
-    private val onItemClick: (String) -> Unit
+    private val onItemClick: (String) -> Unit,
+    private val onFavoriteClick: (String) -> Unit
 ) : PagingDataAdapter<HospitalItemUiState, RecyclerView.ViewHolder>(UiModelComparator) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
@@ -34,6 +35,9 @@ class HospitalAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(hospitalItem: HospitalItemUiState) {
             binding.hospitalItem = hospitalItem
+            binding.btnFavorite.setOnCheckedChangeListener { buttonView, isChecked ->
+                onFavoriteClick(hospitalItem.id)
+            }
             binding.root.setOnClickListener { onItemClick(hospitalItem.id) }
         }
     }
@@ -52,6 +56,5 @@ class HospitalAdapter(
         ): Boolean {
             return oldItem == newItem
         }
-
     }
 }

@@ -23,6 +23,13 @@
                 app:argType="string"
                 android:name="hospitalId"/>
         </action>
+        <action
+            android:id="@+id/action_searchFragment_to_favoriteBottomSheet"
+            app:destination="@id/favoriteBottomSheet">
+            <argument
+                app:argType="string"
+                android:name="hospitalId"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/hospitalDetailFragment"
@@ -41,5 +48,14 @@
             android:id="@+id/action_hospitalDetailFragment_to_searchFragment"
             app:destination="@id/searchFragment">
         </action>
+        <action
+            android:id="@+id/action_hospitalDetailFragment_to_favoriteBottomSheet"
+            app:destination="@id/favoriteBottomSheet" />
     </fragment>
+
+    <dialog
+        android:id="@+id/favoriteBottomSheet"
+        android:name="com.sumin.hospital_favorite.FavoriteBottomSheet"
+        android:label="FavoriteBottomSheet"
+        tools:layout="@layout/fragment_favorite_bottom_sheet"/>
 </navigation>

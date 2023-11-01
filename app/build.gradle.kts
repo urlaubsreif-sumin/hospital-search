@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.sumin.hospital"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.sumin.hospital"
@@ -48,9 +48,8 @@ dependencies {
     implementation(project(mapOf("path" to ":feature:search")))
     implementation(project(mapOf("path" to ":feature:web")))
     implementation(project(mapOf("path" to ":feature:hospital-detail")))
-    implementation(project(mapOf("path" to ":domain:hospital-list")))
+    implementation(project(mapOf("path" to ":feature:hospital-favorite")))
     implementation(project(mapOf("path" to ":base:navigation")))
-    implementation(project(mapOf("path" to ":data:hospitals")))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -74,8 +73,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     val hilt_version = "2.48"
-    implementation ("com.google.dagger:hilt-android:$hilt_version")
-    kapt ("com.google.dagger:hilt-compiler:$hilt_version")
+    implementation("com.google.dagger:hilt-android:$hilt_version")
+    kapt("com.google.dagger:hilt-compiler:$hilt_version")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -85,3 +84,4 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
+

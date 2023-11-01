@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/domain/hospital-list" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/hospital-detail" />
+            <option value="$PROJECT_DIR$/feature/hospital-favorite" />
             <option value="$PROJECT_DIR$/feature/search" />
             <option value="$PROJECT_DIR$/feature/web" />
           </set>

@@ -33,8 +33,18 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var navigatorMediator: NavigatorMediator
 
-    private val hospitalAdapter = HospitalAdapter { id ->
-        navigatorMediator.navigate(Route.ActionSearchFragmentToHospitalDetailFragment(id))
+    private val hospitalAdapter = HospitalAdapter(
+        onItemClick = { id ->
+            navigatorMediator.navigate(Route.ActionSearchFragmentToHospitalDetailFragment(id))
+        },
+        onFavoriteClick = { id ->
+            navigatorMediator.navigate(Route.ActionSearchFragmentToFavoriteBottomSheetDialog(id))
+
+        }
+    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

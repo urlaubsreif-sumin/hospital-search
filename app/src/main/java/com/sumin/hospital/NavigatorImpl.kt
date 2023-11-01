@@ -27,6 +27,10 @@ class NavigatorImpl @Inject constructor(private val activity: FragmentActivity) 
             is Route.ActionHospitalDetailFragmentToWebViewActivity -> {
                 navigateToHospitalHomepage(to.url)
             }
+
+            is Route.ActionSearchFragmentToFavoriteBottomSheetDialog -> {
+                navigateToFavoriteBottomSheetDialog(to.id)
+            }
         }
     }
 
@@ -39,5 +43,10 @@ class NavigatorImpl @Inject constructor(private val activity: FragmentActivity) 
         val action =
             HospitalDetailFragmentDirections.actionHospitalDetailFragmentToWebViewActivity(url)
         navController.navigate(action)
+    }
+
+    private fun navigateToFavoriteBottomSheetDialog(id: String) {
+        val action = SearchFragmentDirections.actionSearchFragmentToFavoriteBottomSheet(id)
+        navController?.navigate(action)
     }
 }
