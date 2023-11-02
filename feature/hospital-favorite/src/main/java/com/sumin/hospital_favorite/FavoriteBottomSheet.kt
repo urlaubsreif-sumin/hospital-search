@@ -9,7 +9,7 @@ import com.sumin.hospital_favorite.databinding.FragmentFavoriteBottomSheetBindin
 
 private const val ARG_HOSPITAL_ID = "hospitalId"
 
-class FavoriteBottomSheet: BottomSheetDialogFragment() {
+class FavoriteBottomSheet : BottomSheetDialogFragment() {
 
     private var _binding: FragmentFavoriteBottomSheetBinding? = null
     private val binding: FragmentFavoriteBottomSheetBinding get() = requireNotNull(_binding)
@@ -35,5 +35,8 @@ class FavoriteBottomSheet: BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvHospitalId.text = hospitalId
+        binding.btnClose.setOnClickListener {
+            this@FavoriteBottomSheet.dismiss()
+        }
     }
 }

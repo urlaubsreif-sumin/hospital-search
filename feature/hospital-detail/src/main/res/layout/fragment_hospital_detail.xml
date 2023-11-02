@@ -62,7 +62,7 @@
                             android:id="@+id/btn_favorite"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:background="@drawable/favorite_hospital_selector"
+                            android:background="@drawable/selector_favorite_hospital"
                             android:textOn=""
                             android:textOff=""
                             android:padding="4dp"
