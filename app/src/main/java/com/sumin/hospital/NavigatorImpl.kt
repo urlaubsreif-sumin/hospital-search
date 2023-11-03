@@ -21,32 +21,25 @@ class NavigatorImpl @Inject constructor(private val activity: FragmentActivity) 
     override fun navigate(to: Route) {
         when (to) {
             is Route.ActionSearchFragmentToHospitalDetailFragment -> {
-                navigateToHospitalDetailFragment(to.id)
+                val action = SearchFragmentDirections.actionSearchFragmentToHospitalDetailFragment(to.id)
+                navController.navigate(action)
             }
 
             is Route.ActionHospitalDetailFragmentToWebViewActivity -> {
-                navigateToHospitalHomepage(to.url)
+                val action =
+                    HospitalDetailFragmentDirections.actionHospitalDetailFragmentToWebViewActivity(to.url)
+                navController.navigate(action)
             }
 
             is Route.ActionSearchFragmentToFavoriteBottomSheetDialog -> {
-                navigateToFavoriteBottomSheetDialog(to.id)
+                val action = SearchFragmentDirections.actionSearchFragmentToFavoriteBottomSheet(to.id)
+                navController?.navigate(action)
+            }
+
+            is Route.ActionHospitalDetailFragmentToFavoriteBottomSheetDialog -> {
+                val action = HospitalDetailFragmentDirections.actionHospitalDetailFragmentToFavoriteBottomSheet(to.id)
+                navController.navigate(action)
             }
         }
-    }
-
-    private fun navigateToHospitalDetailFragment(id: String) {
-        val action = SearchFragmentDirections.actionSearchFragmentToHospitalDetailFragment(id)
-        navController.navigate(action)
-    }
-
-    private fun navigateToHospitalHomepage(url: String?) {
-        val action =
-            HospitalDetailFragmentDirections.actionHospitalDetailFragmentToWebViewActivity(url)
-        navController.navigate(action)
-    }
-
-    private fun navigateToFavoriteBottomSheetDialog(id: String) {
-        val action = SearchFragmentDirections.actionSearchFragmentToFavoriteBottomSheet(id)
-        navController?.navigate(action)
     }
 }

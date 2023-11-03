@@ -17,6 +17,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
+            android:id="@+id/tv_folder_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="폴더 명"
@@ -29,10 +30,12 @@
 
 
         <CheckBox
+            android:id="@+id/check_folder"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@drawable/selector_check"
             android:button="@null"
+            android:clickable="false"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

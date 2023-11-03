@@ -50,7 +50,11 @@
         </action>
         <action
             android:id="@+id/action_hospitalDetailFragment_to_favoriteBottomSheet"
-            app:destination="@id/favoriteBottomSheet" />
+            app:destination="@id/favoriteBottomSheet">
+            <argument
+                app:argType="string"
+                android:name="hospitalId"/>
+        </action>
     </fragment>
 
     <dialog

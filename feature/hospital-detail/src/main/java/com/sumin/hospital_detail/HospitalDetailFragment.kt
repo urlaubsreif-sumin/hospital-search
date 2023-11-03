@@ -70,6 +70,10 @@ class HospitalDetailFragment : Fragment() {
                 val url = viewModel.uiState.value.homepageUrl
                 navigatorMediator.navigate(Route.ActionHospitalDetailFragmentToWebViewActivity(url))
             }
+            btnFavorite.setOnClickListener {
+                val id = viewModel.uiState.value.id
+                navigatorMediator.navigate(Route.ActionHospitalDetailFragmentToFavoriteBottomSheetDialog(id))
+            }
         }
     }
 }

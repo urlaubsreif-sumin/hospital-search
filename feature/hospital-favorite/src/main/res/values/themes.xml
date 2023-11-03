@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RoundCornerBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/RoundCornerBottomSheetStyle</item>
+    </style>
+
+    <style name="RoundCornerBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_white_round_top_20</item>
+        <item name="behavior_draggable">false</item>
+    </style>
+</resources>

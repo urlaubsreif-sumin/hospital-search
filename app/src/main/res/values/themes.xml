@@ -9,11 +9,4 @@
 
     <style name="Theme.HospitalSearch" parent="Base.Theme.HospitalSearch" />
 
-    <style name="RoundCornerBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/RoundCornerBottomSheetStyle</item>
-    </style>
-
-    <style name="RoundCornerBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/bg_white_round_top_20</item>
-    </style>
 </resources>

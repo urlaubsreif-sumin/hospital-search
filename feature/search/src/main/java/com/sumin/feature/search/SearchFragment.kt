@@ -39,7 +39,6 @@ class SearchFragment : Fragment() {
         },
         onFavoriteClick = { id ->
             navigatorMediator.navigate(Route.ActionSearchFragmentToFavoriteBottomSheetDialog(id))
-
         }
     )
 
