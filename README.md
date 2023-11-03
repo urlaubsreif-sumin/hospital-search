@@ -32,3 +32,4 @@ release note 등 더 자세한 정보는 [Wiki](https://github.com/urlaubsreif-s
 * <a href="https://www.flaticon.com/kr/free-icons/" title="취소 아이콘">취소 아이콘  제작자: abdanbagus - Flaticon</a>
 * <a href="https://www.flaticon.com/kr/free-icons/-" title="검색 데이터 아이콘">검색 데이터 아이콘  제작자: abdanbagus - Flaticon</a>
 * <a href="https://www.flaticon.com/kr/free-icons/-" title="왼쪽 화살표 아이콘">왼쪽 화살표 아이콘  제작자: abdanbagus - Flaticon</a>
+* <a href="https://www.flaticon.com/kr/free-icons/-" title="플러스 마크 아이콘">플러스 마크 아이콘  제작자: abdanbagus - Flaticon</a>

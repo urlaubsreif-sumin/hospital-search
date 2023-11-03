@@ -121,7 +121,7 @@ class FolderAdapter(
 
 
     companion object {
-        private val VIEW_TYPE_FOLDER_ADDER = 1
-        private val VIEW_TYPE_FOLDER = 2
+        private const val VIEW_TYPE_FOLDER_ADDER = 1
+        private const val VIEW_TYPE_FOLDER = 2
     }
 }
