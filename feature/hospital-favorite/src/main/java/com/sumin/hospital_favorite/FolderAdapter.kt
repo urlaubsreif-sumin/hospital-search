@@ -38,18 +38,18 @@ class FolderAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (folderList[position]) {
-            is FolderListItemUiState.FolderUiState -> {
-                (holder as FolderViewHolder).bind(folderList[position] as FolderListItemUiState.FolderUiState)
+            is FolderListItemUiState.ItemFolderUiState -> {
+                (holder as FolderViewHolder).bind(folderList[position] as FolderListItemUiState.ItemFolderUiState)
             }
 
-            is FolderListItemUiState.FolderAdderUiState -> {
+            is FolderListItemUiState.ItemFolderAdderUiState -> {
                 (holder as FolderAdderViewHolder).bind()
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (folderList[position] is FolderListItemUiState.FolderAdderUiState) {
+        if (folderList[position] is FolderListItemUiState.ItemFolderAdderUiState) {
             return VIEW_TYPE_FOLDER_ADDER
         } else {
             return VIEW_TYPE_FOLDER
@@ -71,7 +71,7 @@ class FolderAdapter(
     inner class FolderViewHolder(private val binding: HolderFavoriteFolderBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(folderItem: FolderListItemUiState.FolderUiState) {
+        fun bind(folderItem: FolderListItemUiState.ItemFolderUiState) {
             binding.apply {
                 root.setOnClickListener {
                     onSelectFolder(folderItem.position, !folderItem.checked)
@@ -104,9 +104,9 @@ class FolderAdapter(
             val oldItem = oldList[oldItemPosition]
             val newItem = newList[newItemPosition]
 
-            return if(oldItem is FolderListItemUiState.FolderAdderUiState && newItem is FolderListItemUiState.FolderAdderUiState) {
+            return if(oldItem is FolderListItemUiState.ItemFolderAdderUiState && newItem is FolderListItemUiState.ItemFolderAdderUiState) {
                 true
-            } else if(oldItem is FolderListItemUiState.FolderUiState && newItem is FolderListItemUiState.FolderUiState) {
+            } else if(oldItem is FolderListItemUiState.ItemFolderUiState && newItem is FolderListItemUiState.ItemFolderUiState) {
                 oldItem.id == newItem.id
             } else {
                 false

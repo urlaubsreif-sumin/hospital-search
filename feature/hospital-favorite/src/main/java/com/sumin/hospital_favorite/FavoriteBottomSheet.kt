@@ -77,13 +77,12 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
 
             btnOk.setOnClickListener {
                 favoriteBottomSheetViewModel.submitFavoriteResult()
-                dismiss()
             }
         }
 
         viewLifecycleOwner.lifecycleScope.apply {
             launch {
-                favoriteBottomSheetViewModel.uiState.collectLatest {
+                favoriteBottomSheetViewModel.folderListUiState.collectLatest {
                     if(it.isFetching) {
 
                     } else {

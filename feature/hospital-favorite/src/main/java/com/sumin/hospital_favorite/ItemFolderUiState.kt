@@ -12,14 +12,14 @@ data class FolderListUiState(
     fun getNewCheckedList(pos: Int, isChecked: Boolean): List<FolderListItemUiState> {
         val newList = list.toMutableList()
         newList[pos] =
-            (newList[pos] as FolderListItemUiState.FolderUiState).getCheckedState(isChecked)
+            (newList[pos] as FolderListItemUiState.ItemFolderUiState).getCheckedState(isChecked)
 
         return newList
     }
 }
 
 sealed class FolderListItemUiState {
-    data class FolderUiState(
+    data class ItemFolderUiState(
         val id: Int,
         val position: Int,
         val name: String,
@@ -27,14 +27,14 @@ sealed class FolderListItemUiState {
         val checked: Boolean = false
     ) : FolderListItemUiState() {
 
-        fun getCheckedState(isChecked: Boolean): FolderUiState {
+        fun getCheckedState(isChecked: Boolean): ItemFolderUiState {
             return this.copy(
                 checked = isChecked
             )
         }
     }
 
-    data class FolderAdderUiState(
+    data class ItemFolderAdderUiState(
         val isAvailable: Boolean = false
     ) : FolderListItemUiState()
 }

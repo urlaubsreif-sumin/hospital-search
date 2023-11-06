@@ -2,6 +2,14 @@
 
 <layout>
 
+    <data>
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="viewmodel"
+            type="com.sumin.hospital_favorite.FavoriteBottomSheetViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="300dp"
@@ -14,7 +22,7 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="새 폴더 추가"
+            android:text="새 리스트 만들기"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="16sp"
@@ -36,31 +44,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:hint="새 폴더 명을 입력해주세요"
+            android:maxLength="21"
+            android:hint="새 리스트 명을 입력해주세요"
+            android:onTextChanged="@{(s, start, before, count) -> viewmodel.onChangeFolderName(s.toString())}"
             android:layout_margin="16dp"
             app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
         <TextView
+            android:id="@+id/tv_folder_name_length"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:textColor="@color/black"
+            android:text="@{etFolderName.text.length + ``}"
+            android:textSize="11sp"
+            android:textColor="@{etFolderName.text.length > 20 ? @android:color/holo_red_light : @android:color/black}"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/tv_total_length"
-            app:layout_constraintTop_toTopOf="@id/et_folder_name"
-            app:layout_constraintBottom_toBottomOf="@id/et_folder_name"
+            app:layout_constraintTop_toTopOf="@id/tv_total_length"
+            app:layout_constraintBottom_toBottomOf="@id/tv_total_length"
             tools:text="0"/>
 
         <TextView
             android:id="@+id/tv_total_length"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:text="/20"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="@id/et_folder_name"
-            app:layout_constraintTop_toTopOf="@id/et_folder_name"
-            app:layout_constraintBottom_toBottomOf="@id/et_folder_name"/>
+            app:layout_constraintTop_toBottomOf="@id/et_folder_name"/>
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewmodel.folderAdderDialogUiState.message}"
+            android:textSize="11sp"
+            android:textColor="@android:color/holo_red_light"
+            app:layout_constraintTop_toBottomOf="@id/et_folder_name"
+            app:layout_constraintStart_toStartOf="@id/et_folder_name"
+            app:layout_constraintEnd_toStartOf="@id/tv_folder_name_length"
+            tools:text="리스트 명은 20자를 초과할 수 없습니다."/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_ok"
@@ -69,14 +92,14 @@
             android:text="완료"
             android:gravity="center"
             android:padding="10dp"
-            android:enabled="true"
+            android:enabled="@{etFolderName.text.length > 0 ? true : false}"
             android:textColor="@android:color/white"
             android:background="@drawable/selector_ok"
             android:layout_margin="16dp"
             android:includeFontPadding="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_folder_name"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_total_length"/>
 
 
 

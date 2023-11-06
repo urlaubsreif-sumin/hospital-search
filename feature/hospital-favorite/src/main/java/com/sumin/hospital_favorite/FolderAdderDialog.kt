@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.sumin.hospital_favorite.databinding.DialogFolderAdderBinding
@@ -29,11 +30,24 @@ class FolderAdderDialog : DialogFragment() {
     ): View {
         _binding = DialogFolderAdderBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        binding.lifecycleOwner = this
+        binding.viewmodel = favoriteBottomSheetViewModel
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            btnClose.setOnClickListener { dismiss() }
+            btnOk.setOnClickListener {
+                val result = submitFolderName()
+                if(result) {
+                    dismiss()
+                }
+            }
+        }
     }
 
     override fun onResume() {
@@ -45,5 +59,21 @@ class FolderAdderDialog : DialogFragment() {
 
         params?.width = (deviceWidth * 0.8).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
+    }
+
+    private fun submitFolderName(): Boolean {
+        binding.apply {
+            return if(tvWarning.text.isNullOrEmpty()) {
+                val folderName = etFolderName.text.toString()
+                favoriteBottomSheetViewModel.addFolder(folderName)
+                true
+
+            } else {
+                val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+                tvWarning.startAnimation(animation)
+                tvWarning.requestFocus()
+                false
+            }
+        }
     }
 }

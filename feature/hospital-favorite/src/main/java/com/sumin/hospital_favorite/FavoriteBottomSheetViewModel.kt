@@ -1,5 +1,6 @@
 package com.sumin.hospital_favorite
 
+import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +14,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteBottomSheetViewModel @Inject constructor() : ViewModel() {
-    private val _uiState = MutableStateFlow(FolderListUiState())
-    val uiState: StateFlow<FolderListUiState> = _uiState.asStateFlow()
+    /*리스트 목록 BottomSheetDialog*/
+    private val _folderListUiState = MutableStateFlow(FolderListUiState())
+    val folderListUiState: StateFlow<FolderListUiState> = _folderListUiState.asStateFlow()
+
+    /*새 리스트 추가 Dialog*/
+    private val _folderAdderDialogUiState = MutableStateFlow(FolderAdderDialogUiState())
+    val folderAdderDialogUiState: StateFlow<FolderAdderDialogUiState> =
+        _folderAdderDialogUiState.asStateFlow()
 
     private var fetchJob: Job? = null
 
@@ -22,7 +29,7 @@ class FavoriteBottomSheetViewModel @Inject constructor() : ViewModel() {
 
     fun loadFavoriteFolderList() {
         try {
-            _uiState.update {
+            _folderListUiState.update {
                 it.copy(
                     isFetching = true,
                     message = null
@@ -33,18 +40,18 @@ class FavoriteBottomSheetViewModel @Inject constructor() : ViewModel() {
             fetchJob = viewModelScope.launch {
                 // TODO: 즐겨찾기 목록 정보 + 현재 병원이 이미 추가되어 있는 리스트
                 val list = listOf(
-                    FolderListItemUiState.FolderAdderUiState(),
-                    FolderListItemUiState.FolderUiState(1, 1, "기본0", 0, true),
-                    FolderListItemUiState.FolderUiState(2, 2, "기본1", 0),
-                    FolderListItemUiState.FolderUiState(3, 3, "기본2", 0),
-                    FolderListItemUiState.FolderUiState(4, 4, "기본3", 0),
-                    FolderListItemUiState.FolderUiState(5, 5, "기본4", 0),
-                    FolderListItemUiState.FolderUiState(6, 6, "기본5", 0)
+                    FolderListItemUiState.ItemFolderAdderUiState(),
+                    FolderListItemUiState.ItemFolderUiState(1, 1, "기본0", 0, true),
+                    FolderListItemUiState.ItemFolderUiState(2, 2, "기본1", 0),
+                    FolderListItemUiState.ItemFolderUiState(3, 3, "기본2", 0),
+                    FolderListItemUiState.ItemFolderUiState(4, 4, "기본3", 0),
+                    FolderListItemUiState.ItemFolderUiState(5, 5, "기본4", 0),
+                    FolderListItemUiState.ItemFolderUiState(6, 6, "기본5", 0)
                 )
 
                 isAllNotChecked = getIsAllNotChecked(list)
 
-                _uiState.update {
+                _folderListUiState.update {
                     it.copy(
                         list = list,
                         buttonEnabled = false,
@@ -55,7 +62,7 @@ class FavoriteBottomSheetViewModel @Inject constructor() : ViewModel() {
             }
 
         } catch (e: Exception) {
-            _uiState.update {
+            _folderListUiState.update {
                 it.copy(
                     list = emptyList(),
                     isFetching = false,
@@ -65,17 +72,17 @@ class FavoriteBottomSheetViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun addFolder(folderName: String) {
+    fun addFolder(name: String) {
         viewModelScope.launch {
             // TODO 폴더 추가하고, 갱신
         }
     }
 
     fun selectFolder(pos: Int, isChecked: Boolean) {
-        val newList = uiState.value.getNewCheckedList(pos, isChecked)
+        val newList = folderListUiState.value.getNewCheckedList(pos, isChecked)
         val isNewAllNotChecked = getIsAllNotChecked(newList)
 
-        _uiState.update {
+        _folderListUiState.update {
             it.copy(
                 list = newList,
                 buttonEnabled = !(isAllNotChecked && isNewAllNotChecked),
@@ -88,12 +95,20 @@ class FavoriteBottomSheetViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun onChangeFolderName(value: String) {
+        _folderAdderDialogUiState.update {
+            it.copy(
+                folderName = value
+            )
+        }
+    }
+
     fun submitFavoriteResult() {
         // TODO: 즐겨찾기 결과 저장
     }
 
     private fun getIsAllNotChecked(list: List<FolderListItemUiState>): Boolean {
-        return list.firstOrNull { it is FolderListItemUiState.FolderUiState && it.checked }
+        return list.firstOrNull { it is FolderListItemUiState.ItemFolderUiState && it.checked }
             ?.run {
                 false
             } ?: true
