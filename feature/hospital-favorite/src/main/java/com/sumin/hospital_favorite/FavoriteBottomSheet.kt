@@ -26,7 +26,7 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
     private val binding: FragmentFavoriteBottomSheetBinding get() = requireNotNull(_binding)
 
     private val folderAdapter = FolderAdapter(
-        onSelectAddFolder = { /* TODO 폴더 이름 입력 다이얼로그 띄우기 */ },
+        onSelectAddFolder = { FolderAdderDialog().show(requireActivity().supportFragmentManager, "${FolderAdderDialog::class.simpleName}") },
         onSelectFolder = { position, isChecked ->  favoriteBottomSheetViewModel.selectFolder(position, isChecked) }
     )
 
