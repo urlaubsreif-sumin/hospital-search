@@ -1,0 +1,24 @@
+package com.sumin.database.folder
+
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface FavoriteHospitalDao {
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertFavoriteHospital(favoriteHospitalEntity: FavoriteHospitalEntity)
+
+    @Delete
+    fun deleteFavoriteHospital(favoriteHospitalEntity: FavoriteHospitalEntity)
+
+    @Query("SELECT * FROM favorite_hospital WHERE folderId = :folderId")
+    fun getFavoriteHospitalsInFolder(folderId: Long): Flow<List<FavoriteHospitalEntity>>
+
+    @Query("SELECT * FROM favorite_hospital WHERE hospitalId = :hospitalId")
+    fun getFavoriteHospitalsByHospitalId(hospitalId: String): Flow<List<FavoriteHospitalEntity>>
+
+}

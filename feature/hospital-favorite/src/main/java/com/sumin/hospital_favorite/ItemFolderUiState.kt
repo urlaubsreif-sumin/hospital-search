@@ -20,7 +20,7 @@ data class FolderListUiState(
 
 sealed class FolderListItemUiState {
     data class ItemFolderUiState(
-        val id: Int,
+        val id: Long? = 0L,
         val position: Int,
         val name: String,
         val color: Int,

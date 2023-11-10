@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ class FolderAdderDialog : DialogFragment() {
             btnClose.setOnClickListener { dismiss() }
             btnOk.setOnClickListener {
                 val result = submitFolderName()
+                Log.i("[search test]", "btnOk clicked? -> $result")
                 if(result) {
                     dismiss()
                 }
@@ -63,7 +65,7 @@ class FolderAdderDialog : DialogFragment() {
 
     private fun submitFolderName(): Boolean {
         binding.apply {
-            return if(tvWarning.text.isNullOrEmpty()) {
+            return if(favoriteBottomSheetViewModel.folderAdderDialogUiState.value.getMessage().isEmpty()) {
                 val folderName = etFolderName.text.toString()
                 favoriteBottomSheetViewModel.addFolder(folderName)
                 true

@@ -17,8 +17,10 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/database" />
             <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/data/folders" />
             <option value="$PROJECT_DIR$/data/hospitals" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/domain/folder-list" />
             <option value="$PROJECT_DIR$/domain/hospital-list" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/hospital-detail" />

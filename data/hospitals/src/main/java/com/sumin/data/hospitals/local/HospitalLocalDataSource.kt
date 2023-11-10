@@ -2,7 +2,7 @@ package com.sumin.data.hospitals.local
 
 import com.sumin.data.hospitals.toHospitalDetailModel
 import com.sumin.data.hospitals.toHospitalEntity
-import com.sumin.database.HospitalDao
+import com.sumin.database.hospital.HospitalDao
 import com.sumin.list.hospital.HospitalDetailModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

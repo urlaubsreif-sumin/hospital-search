@@ -4,8 +4,9 @@ import com.sumin.data.hospitals.local.HospitalLocalDataSource
 import com.sumin.data.hospitals.local.HospitalLocalDataSourceImpl
 import com.sumin.data.hospitals.remote.HospitalRemoteDataSource
 import com.sumin.data.hospitals.remote.HospitalRemoteDataSourceImpl
-import com.sumin.database.HospitalDao
+import com.sumin.database.hospital.HospitalDao
 import com.sumin.list.hospital.HospitalRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,11 +16,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RepositoryModule {
+class RepositoryImplModule {
 
     @Singleton
     @Provides
-    fun provideHospitalRepository(
+    fun provideHospitalRepositoryImpl(
         localDataSource: HospitalLocalDataSource,
         remoteDataSource: HospitalRemoteDataSource
     ): HospitalRepository {

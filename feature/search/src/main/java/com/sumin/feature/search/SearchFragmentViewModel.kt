@@ -1,5 +1,6 @@
 package com.sumin.feature.search
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -13,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
@@ -37,6 +39,7 @@ class SearchFragmentViewModel @Inject constructor(
             .cachedIn(viewModelScope)
             .map { pagingData ->
                 pagingData.map {
+                    Log.i("[search test]", "pagingData: ${it.hospitalName}")
                     HospitalItemUiState(
                         id = it.id,
                         codeName = it.codeName,
@@ -47,6 +50,7 @@ class SearchFragmentViewModel @Inject constructor(
                 }
 
             }.catch { e ->
+                Log.i("[search test]", "exception: ${e.message}")
 //                TODO()
 
             }

@@ -1,5 +1,6 @@
 package com.sumin.data.hospitals.remote
 
+import android.util.Log
 import androidx.paging.PagingSource
 import com.sumin.data.hospitals.HospitalPagingSource
 import com.sumin.list.hospital.HospitalModel
@@ -23,6 +24,7 @@ class HospitalRemoteDataSourceImpl(
         query: HospitalQuery,
         getHospitalModels: suspend (List<HospitalApiModel>) -> Unit
     ): PagingSource<Int, HospitalModel> {
+        Log.i("[search test]", "RemoteDataSource.getHospitalPagingByQuery")
         return HospitalPagingSource(
             hospitalApi,
             query,

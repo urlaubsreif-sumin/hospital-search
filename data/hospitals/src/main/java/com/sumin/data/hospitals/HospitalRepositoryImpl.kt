@@ -1,5 +1,6 @@
 package com.sumin.data.hospitals
 
+import android.util.Log
 import androidx.paging.PagingSource
 import com.sumin.data.hospitals.local.HospitalLocalDataSource
 import com.sumin.data.hospitals.remote.HospitalRemoteDataSource
@@ -16,7 +17,9 @@ class HospitalRepositoryImpl @Inject constructor(
 ) : HospitalRepository {
 
     override fun getHospitalListByQuery(query: HospitalQuery): PagingSource<Int, HospitalModel> {
+        Log.i("[search test]", "getHospitalListByQuery($query)")
         return hospitalRemoteDataSource.getHospitalPagingByQuery(query) { hospitalApiModels ->
+            Log.i("[search test]", "hospitalApiModels: ${hospitalApiModels.size}")
             val hospitalDetailModels = hospitalApiModels.map {
                 it.toHospitalDetailModel()
             }

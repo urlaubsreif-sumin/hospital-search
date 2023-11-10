@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -49,6 +51,9 @@ dependencies {
     implementation(project(mapOf("path" to ":feature:web")))
     implementation(project(mapOf("path" to ":feature:hospital-detail")))
     implementation(project(mapOf("path" to ":feature:hospital-favorite")))
+    implementation(project(mapOf("path" to ":domain:folder-list")))
+    implementation(project(mapOf("path" to ":data:hospitals")))
+    implementation(project(mapOf("path" to ":data:folders")))
     implementation(project(mapOf("path" to ":base:navigation")))
 
     implementation("androidx.core:core-ktx:1.9.0")

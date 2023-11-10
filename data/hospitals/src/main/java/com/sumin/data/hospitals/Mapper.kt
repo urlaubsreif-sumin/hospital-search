@@ -1,7 +1,7 @@
 package com.sumin.data.hospitals
 
 import com.sumin.data.hospitals.remote.HospitalApiModel
-import com.sumin.database.HospitalEntity
+import com.sumin.database.hospital.HospitalEntity
 import com.sumin.list.hospital.HospitalDetailModel
 import com.sumin.list.hospital.HospitalModel
 

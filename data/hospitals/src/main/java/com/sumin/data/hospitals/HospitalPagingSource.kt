@@ -1,5 +1,6 @@
 package com.sumin.data.hospitals
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.sumin.data.hospitals.remote.HospitalApi
@@ -16,6 +17,7 @@ class HospitalPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, HospitalModel> {
         try {
             val nextPageNumber = params.key ?: 1
+            Log.i("[search test]", "pagingSource.load ... ${nextPageNumber}")
             val response = backend.getHospitalList(
                 pageNo = nextPageNumber,
                 numOfRows = Constants.PAGE_SIZE,
@@ -29,6 +31,7 @@ class HospitalPagingSource(
                 serviceKey = BuildConfig.API_KEY
             )
 
+            Log.i("[search test]", "pagingSouce ${response.body?.totalCount}")
             val items = response.body?.hospitalListApiModel?.item
                 ?: emptyList()
             getHospitalModels(items)
@@ -40,6 +43,7 @@ class HospitalPagingSource(
             )
 
         } catch (e: Exception) {
+            Log.i("[search test]", "error: ${e.message}")
             return LoadResult.Error(e)
         }
     }

@@ -1,4 +1,4 @@
-package com.sumin.database
+package com.sumin.database.hospital
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -50,7 +51,13 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
         binding.viewmodel = favoriteBottomSheetViewModel
         binding.lifecycleOwner = this@FavoriteBottomSheet
 
-        favoriteBottomSheetViewModel.loadFavoriteFolderList()
+        try {
+            favoriteBottomSheetViewModel.loadFavoriteFolderList(hospitalId!!)
+
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "잠시 후에 다시 시도해주세요.", Toast.LENGTH_SHORT)
+            dismiss()
+        }
 
         return binding.root
     }
