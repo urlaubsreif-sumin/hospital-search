@@ -9,10 +9,16 @@ data class FolderListUiState(
     val message: String? = null
 ) {
 
-    fun getNewCheckedList(pos: Int, isChecked: Boolean): List<FolderListItemUiState> {
+    fun getNewCheckedList(id: Long, isChecked: Boolean): List<FolderListItemUiState> {
         val newList = list.toMutableList()
-        newList[pos] =
-            (newList[pos] as FolderListItemUiState.ItemFolderUiState).getCheckedState(isChecked)
+        newList.replaceAll { item ->
+            if (item is FolderListItemUiState.ItemFolderUiState && item.id == id) {
+                item.getCheckedState(isChecked)
+
+            } else {
+                item
+            }
+        }
 
         return newList
     }
@@ -20,8 +26,7 @@ data class FolderListUiState(
 
 sealed class FolderListItemUiState {
     data class ItemFolderUiState(
-        val id: Long? = 0L,
-        val position: Int,
+        val id: Long,
         val name: String,
         val color: Int,
         val checked: Boolean = false

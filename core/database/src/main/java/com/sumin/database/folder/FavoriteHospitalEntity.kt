@@ -3,9 +3,8 @@ package com.sumin.database.folder
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "favorite_hospital")
+@Entity(tableName = "favorite_hospital", primaryKeys = ["hospitalId", "folderId"])
 data class FavoriteHospitalEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
     val hospitalId: String,
     val folderId: Long
 )

@@ -8,7 +8,6 @@ import com.sumin.folder_list.FolderModel
 
 fun FolderModel.toFolderEntity(): FolderEntity {
     return FolderEntity(
-        id = id,
         name = name,
         color = color
     )
@@ -24,7 +23,6 @@ fun FolderEntity.toFolderModel(): FolderModel {
 
 fun FavoriteHospitalModel.toFavoriteHospitalEntity(): FavoriteHospitalEntity {
     return FavoriteHospitalEntity(
-        id = id,
         folderId = folderId,
         hospitalId = hospitalId
     )
@@ -32,7 +30,6 @@ fun FavoriteHospitalModel.toFavoriteHospitalEntity(): FavoriteHospitalEntity {
 
 fun FavoriteHospitalEntity.toFavoriteHospitalModel(): FavoriteHospitalModel {
     return FavoriteHospitalModel(
-        id = id,
         folderId = folderId,
         hospitalId = hospitalId
     )

@@ -28,7 +28,7 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
 
     private val folderAdapter = FolderAdapter(
         onSelectAddFolder = { FolderAdderDialog().show(requireActivity().supportFragmentManager, "${FolderAdderDialog::class.simpleName}") },
-        onSelectFolder = { position, isChecked ->  favoriteBottomSheetViewModel.selectFolder(position, isChecked) }
+        onSelectFolder = { folderId, isChecked ->  favoriteBottomSheetViewModel.selectFolder(folderId, isChecked) }
     )
 
     private var hospitalId: String? = null
@@ -55,7 +55,7 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
             favoriteBottomSheetViewModel.loadFavoriteFolderList(hospitalId!!)
 
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), "잠시 후에 다시 시도해주세요.", Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), "잠시 후에 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
             dismiss()
         }
 
@@ -68,10 +68,6 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
         binding.apply {
             tvHospitalId.text = hospitalId
 
-            btnClose.setOnClickListener {
-                this@FavoriteBottomSheet.dismiss()
-            }
-
             rvFavoriteFolderList.apply {
                 adapter = folderAdapter
 
@@ -82,8 +78,18 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
                 addItemDecoration(itemDecoration)
             }
 
-            btnOk.setOnClickListener {
-                favoriteBottomSheetViewModel.submitFavoriteResult()
+            btnClose.setOnClickListener {
+                this@FavoriteBottomSheet.dismiss()
+            }
+
+            try {
+                btnOk.setOnClickListener {
+                    favoriteBottomSheetViewModel.submitFavoriteResult(hospitalId!!)
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "잠시 후에 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                dismiss()
             }
         }
 

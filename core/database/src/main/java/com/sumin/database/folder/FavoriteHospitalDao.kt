@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteHospitalDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavoriteHospital(favoriteHospitalEntity: FavoriteHospitalEntity)
 
     @Delete

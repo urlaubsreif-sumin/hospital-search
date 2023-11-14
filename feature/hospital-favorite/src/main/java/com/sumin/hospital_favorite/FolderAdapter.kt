@@ -9,7 +9,7 @@ import com.sumin.hospital_favorite.databinding.HolderFavoriteFolderBinding
 
 class FolderAdapter(
     private val onSelectAddFolder: () -> Unit,
-    private val onSelectFolder: (position: Int, isChecked: Boolean) -> Unit
+    private val onSelectFolder: (folderId: Long, isChecked: Boolean) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var folderList: List<FolderListItemUiState> = emptyList()
@@ -74,7 +74,7 @@ class FolderAdapter(
         fun bind(folderItem: FolderListItemUiState.ItemFolderUiState) {
             binding.apply {
                 root.setOnClickListener {
-                    onSelectFolder(folderItem.position, !folderItem.checked)
+                    onSelectFolder(folderItem.id, !folderItem.checked)
                 }
 
                 checkFolder.isChecked = folderItem.checked

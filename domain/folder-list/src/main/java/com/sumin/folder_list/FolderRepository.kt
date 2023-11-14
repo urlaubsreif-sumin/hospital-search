@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 interface FolderRepository {
     suspend fun getFolderList(): Flow<List<FolderModel>>
 
-    suspend fun insertFolder(folder: FolderModel)
+    suspend fun insertFolder(folderName: String, color: Int)
 
     suspend fun updateFolder(folder: FolderModel)
 

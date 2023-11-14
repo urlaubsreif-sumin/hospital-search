@@ -2,6 +2,7 @@ package com.sumin.hospital_favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sumin.folder_list.FavoriteHospitalModel
 import com.sumin.folder_list.FolderModel
 import com.sumin.folder_list.FolderRepository
 import com.sumin.folder_list.GetFavoriteHospitalStateUseCase
@@ -48,10 +49,9 @@ class FavoriteBottomSheetViewModel @Inject constructor(
                 getFavoriteHospitalStateUseCase(hospitalId).collectLatest {
                     val new_list = mutableListOf<FolderListItemUiState>()
                     new_list.add(0, FolderListItemUiState.ItemFolderAdderUiState())
-                    val list = it.mapIndexed { idx, folderModel ->
+                    val list = it.map { folderModel ->
                         FolderListItemUiState.ItemFolderUiState(
                             id = folderModel.id,
-                            position = idx,
                             name = folderModel.name,
                             color = folderModel.color,
                             checked = folderModel.isChecked
@@ -70,17 +70,6 @@ class FavoriteBottomSheetViewModel @Inject constructor(
                         )
                     }
                 }
-                /*// TODO: 즐겨찾기 목록 정보 + 현재 병원이 이미 추가되어 있는 리스트
-                val list = listOf(
-                    FolderListItemUiState.ItemFolderAdderUiState(),
-                    FolderListItemUiState.ItemFolderUiState(1, 1, "기본0", 0, true),
-                    FolderListItemUiState.ItemFolderUiState(2, 2, "기본1", 0),
-                    FolderListItemUiState.ItemFolderUiState(3, 3, "기본2", 0),
-                    FolderListItemUiState.ItemFolderUiState(4, 4, "기본3", 0),
-                    FolderListItemUiState.ItemFolderUiState(5, 5, "기본4", 0),
-                    FolderListItemUiState.ItemFolderUiState(6, 6, "기본5", 0)
-                )*/
-
             }
 
         } catch (e: Exception) {
@@ -96,22 +85,17 @@ class FavoriteBottomSheetViewModel @Inject constructor(
 
     fun addFolder(name: String) {
         viewModelScope.launch {
-            // TODO 폴더 추가하고, 갱신
             folderRepository.insertFolder(
-                FolderModel(
-                    id = null,
-                    name = name,
-                    color = 0
-                )
+                name, 0
             )
         }
     }
 
-    fun selectFolder(pos: Int, isChecked: Boolean) {
-        val newList = folderListUiState.value.getNewCheckedList(pos, isChecked)
-        val isNewAllNotChecked = getIsAllNotChecked(newList)
-
+    fun selectFolder(id: Long, isChecked: Boolean) {
         _folderListUiState.update {
+            val newList = it.getNewCheckedList(id, isChecked)
+            val isNewAllNotChecked = getIsAllNotChecked(newList)
+
             it.copy(
                 list = newList,
                 buttonEnabled = !(isAllNotChecked && isNewAllNotChecked),
@@ -132,8 +116,26 @@ class FavoriteBottomSheetViewModel @Inject constructor(
         }
     }
 
-    fun submitFavoriteResult() {
-        // TODO: 즐겨찾기 결과 저장
+    fun submitFavoriteResult(hospitalId: String) {
+        viewModelScope.launch {
+            _folderListUiState.value.list.forEach { folder ->
+                if(folder is FolderListItemUiState.ItemFolderUiState) {
+                    val favoriteHospitalModel = FavoriteHospitalModel(
+                        folderId = folder.id,
+                        hospitalId = hospitalId
+                    )
+
+                    when(folder.checked) {
+                        true -> {
+                            folderRepository.insertFavoriteHospital(favoriteHospitalModel)
+                        }
+                        false -> {
+                            folderRepository.deleteFavoriteHospital(favoriteHospitalModel)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun getIsAllNotChecked(list: List<FolderListItemUiState>): Boolean {
@@ -142,5 +144,4 @@ class FavoriteBottomSheetViewModel @Inject constructor(
                 false
             } ?: true
     }
-
 }

@@ -2,6 +2,7 @@ package com.sumin.favfolders.local
 
 import com.sumin.database.folder.FavoriteHospitalDao
 import com.sumin.database.folder.FolderDao
+import com.sumin.database.folder.FolderEntity
 import com.sumin.favfolders.toFavoriteHospitalEntity
 import com.sumin.favfolders.toFavoriteHospitalModel
 import com.sumin.favfolders.toFolderEntity
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 interface FolderLocalDataSource {
-    suspend fun insertFolder(folder: FolderModel)
+    suspend fun insertFolder(folderName: String, color: Int)
     suspend fun updateFolder(folder: FolderModel)
     suspend fun deleteFolder(vararg folder: FolderModel)
     suspend fun getAllFolders(): Flow<List<FolderModel>>
@@ -31,9 +32,11 @@ class FolderLocalDataSourceImpl @Inject constructor(
     private val favoriteHospitalDao: FavoriteHospitalDao
 ) : FolderLocalDataSource {
 
-    override suspend fun insertFolder(folder: FolderModel) {
+    override suspend fun insertFolder(folderName: String, color: Int) {
         withContext(ioDispatcher) {
-            folderDao.insertFolder(folder.toFolderEntity())
+            folderDao.insertFolder(
+                FolderEntity(folderName, color)
+            )
         }
     }
 

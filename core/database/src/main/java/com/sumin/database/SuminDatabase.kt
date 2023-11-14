@@ -12,8 +12,7 @@ import com.sumin.database.hospital.HospitalEntity
 
 @Database(
     entities = [HospitalEntity::class, FolderEntity::class, FavoriteHospitalEntity::class],
-    version = 2,
-    autoMigrations = [AutoMigration(1, 2)]
+    version = 1
 )
 abstract class SuminDatabase : RoomDatabase() {
     abstract fun hospitalDao(): HospitalDao

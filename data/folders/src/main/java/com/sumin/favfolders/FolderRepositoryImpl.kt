@@ -15,8 +15,8 @@ class FolderRepositoryImpl @Inject constructor(
         return folderLocalDataSource.getAllFolders()
     }
 
-    override suspend fun insertFolder(folder: FolderModel) {
-        folderLocalDataSource.insertFolder(folder)
+    override suspend fun insertFolder(folderName: String, color: Int) {
+        folderLocalDataSource.insertFolder(folderName, color)
     }
 
     override suspend fun updateFolder(folder: FolderModel) {
