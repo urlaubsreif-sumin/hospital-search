@@ -7,5 +7,6 @@ data class HospitalModel(
     val codeName: String,
     val hospitalName: String?,
     val sidoAddr: String?,
-    val sgguAddr: String?
+    val sgguAddr: String?,
+    val isFavorite: Boolean = false
 ): Serializable

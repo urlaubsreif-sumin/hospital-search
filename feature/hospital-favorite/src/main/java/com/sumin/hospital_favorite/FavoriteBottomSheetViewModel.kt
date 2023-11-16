@@ -1,9 +1,9 @@
 package com.sumin.hospital_favorite
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sumin.folder_list.FavoriteHospitalModel
-import com.sumin.folder_list.FolderModel
 import com.sumin.folder_list.FolderRepository
 import com.sumin.folder_list.GetFavoriteHospitalStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private val TAG = FavoriteBottomSheetViewModel::class.simpleName
 
 @HiltViewModel
 class FavoriteBottomSheetViewModel @Inject constructor(
@@ -37,6 +39,7 @@ class FavoriteBottomSheetViewModel @Inject constructor(
 
     fun loadFavoriteFolderList(hospitalId: String) {
         try {
+            Log.i(TAG, "load folders!")
             _folderListUiState.update {
                 it.copy(
                     isFetching = true,
@@ -73,6 +76,7 @@ class FavoriteBottomSheetViewModel @Inject constructor(
             }
 
         } catch (e: Exception) {
+            Log.i(TAG, "error while load folders: ${e.message}")
             _folderListUiState.update {
                 it.copy(
                     list = emptyList(),
@@ -85,6 +89,7 @@ class FavoriteBottomSheetViewModel @Inject constructor(
 
     fun addFolder(name: String) {
         viewModelScope.launch {
+            Log.i(TAG, "addFolder ---> name: $name")
             folderRepository.insertFolder(
                 name, 0
             )
@@ -92,6 +97,7 @@ class FavoriteBottomSheetViewModel @Inject constructor(
     }
 
     fun selectFolder(id: Long, isChecked: Boolean) {
+        Log.i(TAG, "selectFolder ---> id: $id / isChecked: $isChecked")
         _folderListUiState.update {
             val newList = it.getNewCheckedList(id, isChecked)
             val isNewAllNotChecked = getIsAllNotChecked(newList)
@@ -116,22 +122,27 @@ class FavoriteBottomSheetViewModel @Inject constructor(
         }
     }
 
-    fun submitFavoriteResult(hospitalId: String) {
-        viewModelScope.launch {
-            _folderListUiState.value.list.forEach { folder ->
-                if(folder is FolderListItemUiState.ItemFolderUiState) {
-                    val favoriteHospitalModel = FavoriteHospitalModel(
-                        folderId = folder.id,
-                        hospitalId = hospitalId
-                    )
+    suspend fun submitFavoriteResult(hospitalId: String) {
+        val folderList = folderListUiState.value.list
+        Log.i(TAG, "folder size = ${folderList.size}")
 
-                    when(folder.checked) {
-                        true -> {
-                            folderRepository.insertFavoriteHospital(favoriteHospitalModel)
-                        }
-                        false -> {
-                            folderRepository.deleteFavoriteHospital(favoriteHospitalModel)
-                        }
+        folderList.forEachIndexed { idx, folder ->
+            Log.i(TAG, "folder size = ${folderList.size}")
+            Log.i(TAG, "folder ? ${folder} / $idx")
+            if(folder is FolderListItemUiState.ItemFolderUiState) {
+                val favoriteHospitalModel = FavoriteHospitalModel(
+                    folderId = folder.id,
+                    hospitalId = hospitalId
+                )
+
+                when(folder.checked) {
+                    true -> {
+                        Log.i(TAG, "INSERT FavoriteHospital: ${favoriteHospitalModel.hospitalId} / folder: ${folder.id}")
+                        folderRepository.insertFavoriteHospital(favoriteHospitalModel)
+                    }
+                    false -> {
+                        Log.i(TAG, "DELETE FavoriteHospital: ${favoriteHospitalModel.hospitalId} / folder: ${folder.id}")
+                        folderRepository.deleteFavoriteHospital(favoriteHospitalModel)
                     }
                 }
             }

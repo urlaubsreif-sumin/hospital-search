@@ -30,16 +30,10 @@ class NavigatorImpl @Inject constructor(private val activity: FragmentActivity) 
                     HospitalDetailFragmentDirections.actionHospitalDetailFragmentToWebViewActivity(to.url)
                 navController.navigate(action)
             }
-
-            is Route.ActionSearchFragmentToFavoriteBottomSheetDialog -> {
-                val action = SearchFragmentDirections.actionSearchFragmentToFavoriteBottomSheet(to.id)
-                navController?.navigate(action)
-            }
-
-            is Route.ActionHospitalDetailFragmentToFavoriteBottomSheetDialog -> {
-                val action = HospitalDetailFragmentDirections.actionHospitalDetailFragmentToFavoriteBottomSheet(to.id)
-                navController.navigate(action)
-            }
         }
+    }
+
+    override fun popBackStack() {
+        navController.popBackStack()
     }
 }

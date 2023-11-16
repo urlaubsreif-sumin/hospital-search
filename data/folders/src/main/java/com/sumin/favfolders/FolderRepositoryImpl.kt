@@ -35,6 +35,10 @@ class FolderRepositoryImpl @Inject constructor(
         folderLocalDataSource.deleteFavoriteHospital(folder)
     }
 
+    override suspend fun isFavoriteHospital(hospitalId: String): Boolean {
+        return folderLocalDataSource.isFavoriteHospital(hospitalId)
+    }
+
     override suspend fun getFavoriteHospitalsByHospitalId(hospitalId: String): Flow<List<FavoriteHospitalModel>> {
         return folderLocalDataSource.getFavoriteHospitalsByHospitalId(hospitalId)
     }

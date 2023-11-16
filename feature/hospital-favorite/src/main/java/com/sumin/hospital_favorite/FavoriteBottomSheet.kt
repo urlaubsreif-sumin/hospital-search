@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-private const val ARG_HOSPITAL_ID = "hospitalId"
+const val ARG_HOSPITAL_ID = "hospitalId"
 
 @AndroidEntryPoint
 class FavoriteBottomSheet : BottomSheetDialogFragment() {
@@ -84,7 +84,10 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
 
             try {
                 btnOk.setOnClickListener {
-                    favoriteBottomSheetViewModel.submitFavoriteResult(hospitalId!!)
+                    lifecycleScope.launch {
+                        favoriteBottomSheetViewModel.submitFavoriteResult(hospitalId!!)
+                        dismiss()
+                    }
                 }
 
             } catch (e: Exception) {

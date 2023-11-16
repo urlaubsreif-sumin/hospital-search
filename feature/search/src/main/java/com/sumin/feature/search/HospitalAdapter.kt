@@ -33,9 +33,10 @@ class HospitalAdapter(
 
     inner class HospitalViewHolder(private val binding: ItemHospitalGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(hospitalItem: HospitalItemUiState) {
             binding.hospitalItem = hospitalItem
-            binding.btnFavorite.setOnCheckedChangeListener { buttonView, isChecked ->
+            binding.btnFavorite.setOnClickListener {
                 onFavoriteClick(hospitalItem.id)
             }
             binding.root.setOnClickListener { onItemClick(hospitalItem.id) }

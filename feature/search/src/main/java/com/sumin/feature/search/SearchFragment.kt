@@ -15,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.sumin.feature.search.databinding.FragmentSearchBinding
+import com.sumin.hospital_favorite.ARG_HOSPITAL_ID
+import com.sumin.hospital_favorite.FavoriteBottomSheet
 import com.sumin.navigation.NavigatorMediator
 import com.sumin.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,8 +39,13 @@ class SearchFragment : Fragment() {
         onItemClick = { id ->
             navigatorMediator.navigate(Route.ActionSearchFragmentToHospitalDetailFragment(id))
         },
-        onFavoriteClick = { id ->
-            navigatorMediator.navigate(Route.ActionSearchFragmentToFavoriteBottomSheetDialog(id))
+        onFavoriteClick = { hospitalId ->
+            val bottomSheetDialog = FavoriteBottomSheet()
+            val bundle = Bundle().apply {
+                putString(ARG_HOSPITAL_ID, hospitalId)
+            }
+            bottomSheetDialog.arguments = bundle
+            bottomSheetDialog.show(parentFragmentManager, null)
         }
     )
 

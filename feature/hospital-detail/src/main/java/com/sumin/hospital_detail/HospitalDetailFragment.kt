@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sumin.hospital_detail.databinding.FragmentHospitalDetailBinding
+import com.sumin.hospital_favorite.FavoriteBottomSheet
 import com.sumin.navigation.NavigatorMediator
 import com.sumin.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,8 +72,12 @@ class HospitalDetailFragment : Fragment() {
                 navigatorMediator.navigate(Route.ActionHospitalDetailFragmentToWebViewActivity(url))
             }
             btnFavorite.setOnClickListener {
-                val id = viewModel.uiState.value.id
-                navigatorMediator.navigate(Route.ActionHospitalDetailFragmentToFavoriteBottomSheetDialog(id))
+                val bottomSheetDialog = FavoriteBottomSheet()
+                val bundle = Bundle().apply {
+                    putString(ARG_HOSPITAL_ID, hospitalId)
+                }
+                bottomSheetDialog.arguments = bundle
+                bottomSheetDialog.show(parentFragmentManager, null)
             }
         }
     }

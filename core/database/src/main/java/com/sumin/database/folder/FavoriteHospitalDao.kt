@@ -18,6 +18,9 @@ interface FavoriteHospitalDao {
     @Query("SELECT * FROM favorite_hospital WHERE folderId = :folderId")
     fun getFavoriteHospitalsInFolder(folderId: Long): Flow<List<FavoriteHospitalEntity>>
 
+    @Query("SELECT EXISTS(SELECT * FROM favorite_hospital WHERE hospitalId = :hospitalId)")
+    fun isFavoriteHospital(hospitalId: String): Boolean
+
     @Query("SELECT * FROM favorite_hospital WHERE hospitalId = :hospitalId")
     fun getFavoriteHospitalsByHospitalId(hospitalId: String): Flow<List<FavoriteHospitalEntity>>
 

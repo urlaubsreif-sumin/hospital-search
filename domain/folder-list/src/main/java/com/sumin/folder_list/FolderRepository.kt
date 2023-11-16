@@ -16,5 +16,7 @@ interface FolderRepository {
 
     suspend fun deleteFavoriteHospital(folder: FavoriteHospitalModel)
 
+    suspend fun isFavoriteHospital(hospitalId: String): Boolean
+
     suspend fun getFavoriteHospitalsByHospitalId(hospitalId: String): Flow<List<FavoriteHospitalModel>>
 }

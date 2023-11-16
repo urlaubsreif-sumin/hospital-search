@@ -44,7 +44,9 @@ android {
 
 dependencies {
     /* Modules */
+    implementation(project(mapOf("path" to ":feature:hospital-favorite")))
     implementation(project(mapOf("path" to ":domain:hospital-list")))
+    implementation(project(mapOf("path" to ":domain:favorite-hospital")))
     implementation(project(mapOf("path" to ":base:navigation")))
 
     implementation("androidx.core:core-ktx:1.9.0")

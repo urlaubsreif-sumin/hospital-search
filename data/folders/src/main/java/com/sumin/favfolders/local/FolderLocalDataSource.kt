@@ -23,6 +23,7 @@ interface FolderLocalDataSource {
 
     suspend fun insertFavoriteHospital(favoriteHospitalModel: FavoriteHospitalModel)
     suspend fun deleteFavoriteHospital(favoriteHospitalModel: FavoriteHospitalModel)
+    suspend fun isFavoriteHospital(hospitalId: String): Boolean
     suspend fun getFavoriteHospitalsByHospitalId(hospitalId: String): Flow<List<FavoriteHospitalModel>>
 }
 
@@ -70,6 +71,12 @@ class FolderLocalDataSourceImpl @Inject constructor(
     override suspend fun deleteFavoriteHospital(favoriteHospitalModel: FavoriteHospitalModel) {
         withContext(ioDispatcher) {
             favoriteHospitalDao.deleteFavoriteHospital(favoriteHospitalModel.toFavoriteHospitalEntity())
+        }
+    }
+
+    override suspend fun isFavoriteHospital(hospitalId: String): Boolean {
+        return withContext(ioDispatcher) {
+            favoriteHospitalDao.isFavoriteHospital(hospitalId)
         }
     }
 

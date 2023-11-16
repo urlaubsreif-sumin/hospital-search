@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/data/folders" />
             <option value="$PROJECT_DIR$/data/hospitals" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/domain/favorite-hospital" />
             <option value="$PROJECT_DIR$/domain/folder-list" />
             <option value="$PROJECT_DIR$/domain/hospital-list" />
             <option value="$PROJECT_DIR$/feature" />

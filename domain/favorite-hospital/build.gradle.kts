@@ -11,12 +11,17 @@ java {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":domain:folder-list")))
+    implementation(project(mapOf("path" to ":domain:hospital-list")))
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
     val hilt_version = "2.48"
     implementation ("com.google.dagger:hilt-core:$hilt_version")
     kapt ("com.google.dagger:hilt-android-compiler:$hilt_version")
+
+    val paging_version = "3.1.1"
+    implementation ("androidx.paging:paging-common:$paging_version")
 }
 
 kapt {

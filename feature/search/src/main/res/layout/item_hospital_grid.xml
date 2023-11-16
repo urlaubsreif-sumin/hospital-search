@@ -80,6 +80,7 @@
                 android:textOn=""
                 android:textOff=""
                 android:padding="4dp"
+                android:checked="@{hospitalItem.isFavorite}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
