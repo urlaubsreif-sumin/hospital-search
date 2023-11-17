@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,32 +25,38 @@ class SearchFragmentViewModel @Inject constructor(
     private val queryFlow = MutableStateFlow(HospitalQuery())
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val queryResult = queryFlow.flatMapLatest { query ->
-        getHospitalListWithFavoriteState(query)
-            .distinctUntilChanged()
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map {
-                    Log.i("[search test]", "pagingData: ${it.hospitalName}")
-                    HospitalItemUiState(
-                        id = it.id,
-                        codeName = it.codeName,
-                        hospitalName = it.hospitalName ?: "정보 없음",
-                        sidoAddr = it.sidoAddr ?: "정보 없음",
-                        sgguAddr = it.sgguAddr ?: "정보 없음",
-                        isFavorite = it.isFavorite
-                    )
-                }
+    val queryResult = queryFlow
+        .distinctUntilChanged { old, new ->
+            old == new }
+        .flatMapLatest { query ->
+            getHospitalListWithFavoriteState(query)
+                .distinctUntilChanged()
+                .cachedIn(viewModelScope)
+                .map { pagingData ->
+                    pagingData.map {
+                        Log.i("[search test]", "pagingData: ${it.hospitalName}")
+                        HospitalItemUiState(
+                            id = it.id,
+                            codeName = it.codeName,
+                            hospitalName = it.hospitalName ?: "정보 없음",
+                            sidoAddr = it.sidoAddr ?: "정보 없음",
+                            sgguAddr = it.sgguAddr ?: "정보 없음",
+                            isFavorite = it.isFavorite
+                        )
+                    }
 
-            }.catch { e ->
-                Log.i("[search test]", "exception: ${e.message}")
+                }.catch { e ->
+                    Log.i("[search test]", "exception: ${e.message}")
 //                TODO()
-
-            }
-    }
+                }
+        }
 
 
     fun onHospitalNameQueryChanged(name: String) {
-        queryFlow.value = queryFlow.value.copy(yadmNm = name)
+        queryFlow.update {
+            it.copy(
+                yadmNm = name
+            )
+        }
     }
 }

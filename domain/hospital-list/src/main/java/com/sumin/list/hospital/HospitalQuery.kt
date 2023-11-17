@@ -4,7 +4,7 @@ data class HospitalQuery(
     val sidoCd: String? = null,
     val sgguCd: String? = null,
     val emdongNm: String? = null,
-    val yadmNm: String? = null,
+    val yadmNm: String = "",
     val zipCd: String? = null,
     val clCd: String? = null,
     val dgsbjtCd: String? = null,

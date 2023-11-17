@@ -14,10 +14,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sumin.feature.search.databinding.FragmentSearchBinding
 import com.sumin.hospital_favorite.ARG_HOSPITAL_ID
 import com.sumin.hospital_favorite.FavoriteBottomSheet
@@ -116,7 +114,7 @@ class SearchFragment : Fragment() {
         if (bottomSheetDialog?.isVisible == true) return
 
         val bottomSheetDialog = FavoriteBottomSheet().apply {
-            val bottomSheetDialogListener = object: FavoriteBottomSheet.OnSubmitListener {
+            val bottomSheetDialogListener = object : FavoriteBottomSheet.OnSubmitListener {
                 override fun onSubmit(hospitalId: String, isFavorite: Boolean) {
                     hospitalAdapter.setFavorite(hospitalId, isFavorite)
                 }
