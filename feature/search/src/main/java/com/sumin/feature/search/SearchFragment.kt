@@ -11,7 +11,10 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -45,7 +48,7 @@ class SearchFragment : Fragment() {
         }
     )
 
-    private var bottomSheetDialog: BottomSheetDialog? = null
+    private var bottomSheetDialog: FavoriteBottomSheet? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,17 +67,11 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
 
-        viewLifecycleOwner.lifecycleScope.apply {
-            launch {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 searchFragmentViewModel.queryResult.collectLatest {
                     Log.i("[search test]", "PAGING DATA <--- ")
                     hospitalAdapter.submitData(it)
-                }
-            }
-
-            launch {
-                hospitalAdapter.loadStateFlow.collectLatest { loadStates ->
-                    binding.progressBar.isVisible = loadStates.refresh is LoadState.Loading
                 }
             }
         }
@@ -82,14 +79,12 @@ class SearchFragment : Fragment() {
 
     private fun initView() {
         binding.apply {
+            hospitalAdapter.addLoadStateListener { loadState ->
+                binding.progressBar.isVisible = loadState.refresh is LoadState.Loading
+            }
 
             rvHospitalList.apply {
                 adapter = hospitalAdapter
-
-//                val linearLayoutManager = LinearLayoutManager(context)
-//                layoutManager = linearLayoutManager
-//
-//                val itemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
                 val itemDecoration = GridSpacingItemDecorator(16)
                 addItemDecoration(itemDecoration)
             }
@@ -118,7 +113,7 @@ class SearchFragment : Fragment() {
 
 
     private fun showBottomSheetDialog(hospitalId: String) {
-        if(bottomSheetDialog != null) return
+        if (bottomSheetDialog?.isVisible == true) return
 
         val bottomSheetDialog = FavoriteBottomSheet().apply {
             val bottomSheetDialogListener = object: FavoriteBottomSheet.OnSubmitListener {

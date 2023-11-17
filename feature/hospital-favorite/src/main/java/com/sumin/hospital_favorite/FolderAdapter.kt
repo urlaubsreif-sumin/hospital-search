@@ -58,7 +58,6 @@ class FolderAdapter(
 
     override fun getItemCount(): Int = folderList.size
 
-
     fun submitData(list: List<FolderListItemUiState>) {
         val diffCallback = DiffUtilCallback(this.folderList, list)
         val diffResult = DiffUtil.calculateDiff(diffCallback)

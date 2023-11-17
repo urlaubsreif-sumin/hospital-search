@@ -86,7 +86,7 @@ class HospitalDetailFragment : Fragment() {
     }
 
     private fun showBottomSheetDialog(hospitalId: String) {
-        if (bottomSheetDialog != null) return
+        if (bottomSheetDialog?.isVisible == true) return
 
         val bottomSheetDialog = FavoriteBottomSheet().apply {
             val bottomSheetDialogListener = object : FavoriteBottomSheet.OnSubmitListener {
