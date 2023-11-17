@@ -31,6 +31,8 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
         onSelectFolder = { folderId, isChecked ->  favoriteBottomSheetViewModel.selectFolder(folderId, isChecked) }
     )
 
+    private var onSubmitListener: OnSubmitListener? = null
+
     private var hospitalId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +87,8 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
             try {
                 btnOk.setOnClickListener {
                     lifecycleScope.launch {
-                        favoriteBottomSheetViewModel.submitFavoriteResult(hospitalId!!)
+                        val isFavorite = favoriteBottomSheetViewModel.submitFavoriteResult(hospitalId!!)
+                        onSubmitListener?.onSubmit(hospitalId!!, isFavorite)
                         dismiss()
                     }
                 }
@@ -107,5 +110,13 @@ class FavoriteBottomSheet : BottomSheetDialogFragment() {
                 }
             }
         }
+    }
+
+    fun setListener(listener: OnSubmitListener) {
+        this.onSubmitListener = listener
+    }
+
+    interface OnSubmitListener {
+        fun onSubmit(hospitalId: String, isFavorite: Boolean)
     }
 }

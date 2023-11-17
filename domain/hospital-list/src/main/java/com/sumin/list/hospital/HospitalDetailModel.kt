@@ -10,5 +10,7 @@ data class HospitalDetailModel(
     val telNo: String?,
     val hompageUrl: String?,
     val estbDate: String?,
-    val addr: String?
+    val addr: String?,
+
+    val isFavorite: Boolean = false
 )

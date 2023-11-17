@@ -25,4 +25,17 @@ class UseCaseModule {
             Dispatchers.Default
         )
     }
+
+    @Singleton
+    @Provides
+    fun provideGetHospitalDetailWithFavoriteState(
+        hospitalRepository: HospitalRepository,
+        folderRepository: FolderRepository
+    ): GetHospitalDetailWithFavoriteState {
+        return GetHospitalDetailWithFavoriteState(
+            folderRepository,
+            hospitalRepository,
+            Dispatchers.Default
+        )
+    }
 }

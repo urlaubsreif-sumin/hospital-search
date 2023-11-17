@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 interface HospitalLocalDataSource {
-    suspend fun getHospitalDetailById(ykiho: String): Flow<HospitalDetailModel>
+    fun getHospitalDetailById(ykiho: String): HospitalDetailModel
     suspend fun addHospitalDetails(hospitalDetails: List<HospitalDetailModel>)
 }
 
@@ -20,8 +20,8 @@ class HospitalLocalDataSourceImpl @Inject constructor(
     private val hospitalDao: HospitalDao
 ) : HospitalLocalDataSource {
 
-    override suspend fun getHospitalDetailById(ykiho: String): Flow<HospitalDetailModel> {
-        return hospitalDao.getHospitalDetail(ykiho).map { it.toHospitalDetailModel() }
+    override fun getHospitalDetailById(ykiho: String): HospitalDetailModel {
+        return hospitalDao.getHospitalDetail(ykiho).toHospitalDetailModel()
     }
 
     override suspend fun addHospitalDetails(hospitalDetails: List<HospitalDetailModel>) {

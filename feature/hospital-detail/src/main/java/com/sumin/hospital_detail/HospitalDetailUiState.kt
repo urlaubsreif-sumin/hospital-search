@@ -11,6 +11,7 @@ data class HospitalDetailUiState(
     val homepageUrl: String? = null,
     val estbDate: String? = null,
     val addr: String? = null,
+    val isFavorite: Boolean = false,
 
     val message: String? = null,
     val isFetchingHospitalDetail: Boolean = false

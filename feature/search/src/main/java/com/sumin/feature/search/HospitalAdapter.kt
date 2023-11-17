@@ -18,6 +18,31 @@ class HospitalAdapter(
         }
     }
 
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        val item = getItem(position)
+        if(holder is HospitalViewHolder && item != null) {
+            if(payloads.isEmpty()) {
+                holder.bind(item)
+
+            } else {
+                payloads.forEach { payload ->
+                    when (payload) {
+                        PAYLOAD_FAVORITE -> {
+                            holder.setFavorite(true)
+                        }
+                        PAYLOAD_UNFAVORITE -> {
+                            holder.setFavorite(false)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
             ItemHospitalGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,6 +56,14 @@ class HospitalAdapter(
         }
     }
 
+    fun setFavorite(hospitalId: String, isFavorite: Boolean) {
+        val position = this.snapshot().items.indexOfFirst { it.id == hospitalId }
+        when(isFavorite) {
+            true -> notifyItemChanged(position, PAYLOAD_FAVORITE)
+            false -> notifyItemChanged(position, PAYLOAD_UNFAVORITE)
+        }
+    }
+
     inner class HospitalViewHolder(private val binding: ItemHospitalGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -40,6 +73,13 @@ class HospitalAdapter(
                 onFavoriteClick(hospitalItem.id)
             }
             binding.root.setOnClickListener { onItemClick(hospitalItem.id) }
+        }
+
+        fun setFavorite(isFavorite: Boolean) {
+            val hospitalItem = binding.hospitalItem?.copy(
+                isFavorite = isFavorite
+            )
+            binding.hospitalItem = hospitalItem
         }
     }
 
@@ -57,5 +97,10 @@ class HospitalAdapter(
         ): Boolean {
             return oldItem == newItem
         }
+    }
+
+    companion object {
+        private const val PAYLOAD_FAVORITE = "com.sumin.feature.search.PAYLOAD_FAVORITE"
+        private const val PAYLOAD_UNFAVORITE = "com.sumin.feature.search.PAYLOAD_UNFAVORITE"
     }
 }

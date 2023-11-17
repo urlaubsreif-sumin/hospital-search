@@ -27,7 +27,7 @@ class HospitalRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getHospitalDetailById(hospitalId: String): Flow<HospitalDetailModel> {
+    override fun getHospitalDetailById(hospitalId: String): HospitalDetailModel {
         return hospitalLocalDataSource.getHospitalDetailById(hospitalId)
     }
 

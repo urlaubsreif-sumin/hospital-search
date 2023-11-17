@@ -7,7 +7,6 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.sumin.favorite_hospital.GetHospitalListWithFavoriteState
 import com.sumin.list.hospital.HospitalQuery
-import com.sumin.list.hospital.HospitalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow

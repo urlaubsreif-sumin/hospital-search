@@ -29,13 +29,13 @@
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
-                    android:background="@color/white"
+                    android:background="@android:color/white"
                     app:expandedTitleGravity="center"
                     app:expandedTitleTextColor="#03A9F4"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                     app:scrimVisibleHeightTrigger="156dp"
                     app:maxLines="3"
-                    app:contentScrim="@color/white"
+                    app:contentScrim="@android:color/white"
                     app:statusBarScrim="@android:color/transparent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,18 +51,18 @@
                             android:padding="3dp"
                             android:textAlignment="center"
                             android:hint="종별코드"
-                            android:textColorHint="@color/white"
+                            android:textColorHint="@android:color/white"
                             android:text="@{viewmodel.uiState.codeName}"
-                            android:textColor="@color/white"
+                            android:textColor="@android:color/white"
                             android:background="@drawable/bg_hospital_code"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"/>
 
-                        <ToggleButton
+                        <ImageButton
                             android:id="@+id/btn_favorite"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:background="@drawable/selector_favorite_hospital"
+                            android:background="@{viewmodel.uiState.isFavorite ? @drawable/icn_favorite : @drawable/icn_unfavorite}"
                             android:textOn=""
                             android:textOff=""
                             android:padding="4dp"

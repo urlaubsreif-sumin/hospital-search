@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,7 +27,9 @@ class HospitalDetailFragment : Fragment() {
     private var _binding: FragmentHospitalDetailBinding? = null
     private val binding: FragmentHospitalDetailBinding get() = requireNotNull(_binding)
 
-    private val viewModel : HospitalDetailFragmentViewModel by viewModels()
+    private val viewModel: HospitalDetailFragmentViewModel by viewModels()
+
+    private var bottomSheetDialog: FavoriteBottomSheet? = null
 
     @Inject
     lateinit var navigatorMediator: NavigatorMediator
@@ -62,6 +65,7 @@ class HospitalDetailFragment : Fragment() {
             toolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
+
             bottomBtnContainer.btnCall.setOnClickListener {
                 val telNo = viewModel.uiState.value.telNo
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$telNo"))
@@ -72,13 +76,33 @@ class HospitalDetailFragment : Fragment() {
                 navigatorMediator.navigate(Route.ActionHospitalDetailFragmentToWebViewActivity(url))
             }
             btnFavorite.setOnClickListener {
-                val bottomSheetDialog = FavoriteBottomSheet()
-                val bundle = Bundle().apply {
-                    putString(ARG_HOSPITAL_ID, hospitalId)
+                try {
+                    showBottomSheetDialog(hospitalId!!)
+                } catch (e: Exception) {
+                    Toast.makeText(requireContext(), "잠시 후에 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 }
-                bottomSheetDialog.arguments = bundle
-                bottomSheetDialog.show(parentFragmentManager, null)
             }
         }
+    }
+
+    private fun showBottomSheetDialog(hospitalId: String) {
+        if (bottomSheetDialog != null) return
+
+        val bottomSheetDialog = FavoriteBottomSheet().apply {
+            val bottomSheetDialogListener = object : FavoriteBottomSheet.OnSubmitListener {
+                override fun onSubmit(hospitalId: String, isFavorite: Boolean) {
+                    viewModel.updateIsFavorite(isFavorite)
+                }
+            }
+
+            val bundle = Bundle().apply {
+                putString(com.sumin.hospital_favorite.ARG_HOSPITAL_ID, hospitalId)
+            }
+
+            arguments = bundle
+            setListener(bottomSheetDialogListener)
+        }
+
+        bottomSheetDialog.show(parentFragmentManager, null)
     }
 }

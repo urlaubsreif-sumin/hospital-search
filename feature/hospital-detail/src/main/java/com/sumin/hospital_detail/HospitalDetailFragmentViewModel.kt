@@ -2,6 +2,7 @@ package com.sumin.hospital_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sumin.favorite_hospital.GetHospitalDetailWithFavoriteState
 import com.sumin.list.hospital.HospitalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HospitalDetailFragmentViewModel @Inject constructor(
-    private val hospitalRepository: HospitalRepository
+    private val hospitalRepository: HospitalRepository,
+    private val getHospitalDetailWithFavoriteState: GetHospitalDetailWithFavoriteState
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HospitalDetailUiState())
@@ -35,24 +37,23 @@ class HospitalDetailFragmentViewModel @Inject constructor(
 
             fetchJob?.cancel()
             fetchJob = viewModelScope.launch {
-                hospitalRepository.getHospitalDetailById(hospitalId!!)
-                    .collectLatest { hospitalDetailModel ->
-                        _uiState.update {
-                            it.copy(
-                                id = hospitalDetailModel.id,
-                                codeName = hospitalDetailModel.codeName,
-                                hospitalName = hospitalDetailModel.hospitalName,
-                                sidoAddr = hospitalDetailModel.sidoAddr,
-                                sgguAddr = hospitalDetailModel.sgguAddr,
-                                telNo = hospitalDetailModel.telNo,
-                                homepageUrl = hospitalDetailModel.hompageUrl,
-                                estbDate = hospitalDetailModel.estbDate,
-                                addr = hospitalDetailModel.addr,
+                val hospitalDetailModel = getHospitalDetailWithFavoriteState(hospitalId!!)
+                _uiState.update {
+                    it.copy(
+                        id = hospitalDetailModel.id,
+                        codeName = hospitalDetailModel.codeName,
+                        hospitalName = hospitalDetailModel.hospitalName,
+                        sidoAddr = hospitalDetailModel.sidoAddr,
+                        sgguAddr = hospitalDetailModel.sgguAddr,
+                        telNo = hospitalDetailModel.telNo,
+                        homepageUrl = hospitalDetailModel.hompageUrl,
+                        estbDate = hospitalDetailModel.estbDate,
+                        addr = hospitalDetailModel.addr,
+                        isFavorite = hospitalDetailModel.isFavorite,
 
-                                isFetchingHospitalDetail = false
-                            )
-                        }
-                    }
+                        isFetchingHospitalDetail = false
+                    )
+                }
             }
 
         } catch (e: Exception) {
@@ -62,6 +63,14 @@ class HospitalDetailFragmentViewModel @Inject constructor(
                     isFetchingHospitalDetail = false
                 )
             }
+        }
+    }
+
+    fun updateIsFavorite(isFavorite: Boolean) {
+        _uiState.update {
+            it.copy(
+                isFavorite = isFavorite
+            )
         }
     }
 }

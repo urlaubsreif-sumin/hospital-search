@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sumin.feature.search.databinding.FragmentSearchBinding
 import com.sumin.hospital_favorite.ARG_HOSPITAL_ID
 import com.sumin.hospital_favorite.FavoriteBottomSheet
@@ -40,18 +41,11 @@ class SearchFragment : Fragment() {
             navigatorMediator.navigate(Route.ActionSearchFragmentToHospitalDetailFragment(id))
         },
         onFavoriteClick = { hospitalId ->
-            val bottomSheetDialog = FavoriteBottomSheet()
-            val bundle = Bundle().apply {
-                putString(ARG_HOSPITAL_ID, hospitalId)
-            }
-            bottomSheetDialog.arguments = bundle
-            bottomSheetDialog.show(parentFragmentManager, null)
+            showBottomSheetDialog(hospitalId)
         }
     )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var bottomSheetDialog: BottomSheetDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -120,6 +114,28 @@ class SearchFragment : Fragment() {
                 swipeRefreshLayout.isRefreshing = false
             }
         }
+    }
+
+
+    private fun showBottomSheetDialog(hospitalId: String) {
+        if(bottomSheetDialog != null) return
+
+        val bottomSheetDialog = FavoriteBottomSheet().apply {
+            val bottomSheetDialogListener = object: FavoriteBottomSheet.OnSubmitListener {
+                override fun onSubmit(hospitalId: String, isFavorite: Boolean) {
+                    hospitalAdapter.setFavorite(hospitalId, isFavorite)
+                }
+            }
+
+            val bundle = Bundle().apply {
+                putString(ARG_HOSPITAL_ID, hospitalId)
+            }
+
+            arguments = bundle
+            setListener(bottomSheetDialogListener)
+        }
+
+        bottomSheetDialog.show(parentFragmentManager, null)
     }
 
     internal class GridSpacingItemDecorator(private val padding: Int) :

@@ -12,6 +12,7 @@ import com.sumin.list.hospital.HospitalRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -20,19 +21,21 @@ class GetHospitalListWithFavoriteState @Inject constructor(
     private val hospitalRepository: HospitalRepository,
     private val defaultDispatcher: CoroutineContext
 ) {
-    operator fun invoke(query: HospitalQuery): Flow<PagingData<HospitalModel>> {
-        return Pager(
-            PagingConfig(pageSize = Constants.PAGE_SIZE)
-        ) {
-            hospitalRepository.getHospitalListByQuery(query)
-        }.flow
-            .distinctUntilChanged()
-            .map { pagingData ->
-                pagingData.map { hospital ->
-                    hospital.copy(
-                        isFavorite = folderRepository.isFavoriteHospital(hospital.id)
-                    )
+    suspend operator fun invoke(query: HospitalQuery): Flow<PagingData<HospitalModel>> {
+        return withContext(defaultDispatcher) {
+            Pager(
+                PagingConfig(pageSize = Constants.PAGE_SIZE)
+            ) {
+                hospitalRepository.getHospitalListByQuery(query)
+            }.flow
+                .distinctUntilChanged()
+                .map { pagingData ->
+                    pagingData.map { hospital ->
+                        hospital.copy(
+                            isFavorite = folderRepository.isFavoriteHospital(hospital.id)
+                        )
+                    }
                 }
-            }
+        }
     }
 }

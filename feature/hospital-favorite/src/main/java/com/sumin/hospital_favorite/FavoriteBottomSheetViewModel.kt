@@ -100,7 +100,7 @@ class FavoriteBottomSheetViewModel @Inject constructor(
         Log.i(TAG, "selectFolder ---> id: $id / isChecked: $isChecked")
         _folderListUiState.update {
             val newList = it.getNewCheckedList(id, isChecked)
-            val isNewAllNotChecked = getIsAllNotChecked(newList)
+            val isNewAllNotChecked = getIsAllNotChecked(newList) // 모든 폴더가 선택되지 않은 경우를 구분하기 위함
 
             it.copy(
                 list = newList,
@@ -122,13 +122,11 @@ class FavoriteBottomSheetViewModel @Inject constructor(
         }
     }
 
-    suspend fun submitFavoriteResult(hospitalId: String) {
+    suspend fun submitFavoriteResult(hospitalId: String): Boolean {
         val folderList = folderListUiState.value.list
-        Log.i(TAG, "folder size = ${folderList.size}")
+        var isFavorite = false
 
-        folderList.forEachIndexed { idx, folder ->
-            Log.i(TAG, "folder size = ${folderList.size}")
-            Log.i(TAG, "folder ? ${folder} / $idx")
+        folderList.forEach { folder ->
             if(folder is FolderListItemUiState.ItemFolderUiState) {
                 val favoriteHospitalModel = FavoriteHospitalModel(
                     folderId = folder.id,
@@ -139,6 +137,7 @@ class FavoriteBottomSheetViewModel @Inject constructor(
                     true -> {
                         Log.i(TAG, "INSERT FavoriteHospital: ${favoriteHospitalModel.hospitalId} / folder: ${folder.id}")
                         folderRepository.insertFavoriteHospital(favoriteHospitalModel)
+                        isFavorite = true
                     }
                     false -> {
                         Log.i(TAG, "DELETE FavoriteHospital: ${favoriteHospitalModel.hospitalId} / folder: ${folder.id}")
@@ -147,6 +146,7 @@ class FavoriteBottomSheetViewModel @Inject constructor(
                 }
             }
         }
+        return isFavorite
     }
 
     private fun getIsAllNotChecked(list: List<FolderListItemUiState>): Boolean {
