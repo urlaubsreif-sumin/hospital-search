@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HospitalDetailFragmentViewModel @Inject constructor(
-    private val hospitalRepository: HospitalRepository,
     private val getHospitalDetailWithFavoriteState: GetHospitalDetailWithFavoriteState
 ) : ViewModel() {
 

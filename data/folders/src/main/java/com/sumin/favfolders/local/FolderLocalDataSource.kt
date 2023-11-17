@@ -22,9 +22,10 @@ interface FolderLocalDataSource {
     suspend fun getAllFolders(): Flow<List<FolderModel>>
 
     suspend fun insertFavoriteHospital(favoriteHospitalModel: FavoriteHospitalModel)
-    suspend fun deleteFavoriteHospital(favoriteHospitalModel: FavoriteHospitalModel)
+    suspend fun deleteFavoriteHospital(vararg favoriteHospitalModel: FavoriteHospitalModel)
     suspend fun isFavoriteHospital(hospitalId: String): Boolean
     suspend fun getFavoriteHospitalsByHospitalId(hospitalId: String): Flow<List<FavoriteHospitalModel>>
+    suspend fun getFavoriteHospitalsByFolderId(folderId: Long): List<FavoriteHospitalModel>
 }
 
 class FolderLocalDataSourceImpl @Inject constructor(
@@ -68,9 +69,10 @@ class FolderLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteFavoriteHospital(favoriteHospitalModel: FavoriteHospitalModel) {
+    override suspend fun deleteFavoriteHospital(vararg favoriteHospitalModel: FavoriteHospitalModel) {
         withContext(ioDispatcher) {
-            favoriteHospitalDao.deleteFavoriteHospital(favoriteHospitalModel.toFavoriteHospitalEntity())
+            val array = favoriteHospitalModel.map { it.toFavoriteHospitalEntity() }.toTypedArray()
+            favoriteHospitalDao.deleteFavoriteHospital(*array)
         }
     }
 
@@ -84,6 +86,14 @@ class FolderLocalDataSourceImpl @Inject constructor(
         return withContext(ioDispatcher) {
             favoriteHospitalDao.getFavoriteHospitalsByHospitalId(hospitalId).map {
                 it.map { favoriteHospitalEntity -> favoriteHospitalEntity.toFavoriteHospitalModel() }
+            }
+        }
+    }
+
+    override suspend fun getFavoriteHospitalsByFolderId(folderId: Long): List<FavoriteHospitalModel> {
+        return withContext(ioDispatcher) {
+            favoriteHospitalDao.getFavoriteHospitalsByFolderId(folderId).map {
+                favoriteHospitalEntity -> favoriteHospitalEntity.toFavoriteHospitalModel()
             }
         }
     }

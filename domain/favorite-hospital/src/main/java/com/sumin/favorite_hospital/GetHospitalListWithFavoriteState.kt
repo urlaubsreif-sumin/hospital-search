@@ -16,6 +16,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * 전체 병원 리스트 + 1개 폴더 이상 즐겨찾기 여부 체크
+ */
 class GetHospitalListWithFavoriteState @Inject constructor(
     private val folderRepository: FolderRepository,
     private val hospitalRepository: HospitalRepository,

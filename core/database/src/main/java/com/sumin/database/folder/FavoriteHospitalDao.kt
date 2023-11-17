@@ -13,7 +13,7 @@ interface FavoriteHospitalDao {
     fun insertFavoriteHospital(favoriteHospitalEntity: FavoriteHospitalEntity)
 
     @Delete
-    fun deleteFavoriteHospital(favoriteHospitalEntity: FavoriteHospitalEntity)
+    fun deleteFavoriteHospital(vararg favoriteHospitalEntity: FavoriteHospitalEntity)
 
     @Query("SELECT * FROM favorite_hospital WHERE folderId = :folderId")
     fun getFavoriteHospitalsInFolder(folderId: Long): Flow<List<FavoriteHospitalEntity>>
@@ -23,5 +23,8 @@ interface FavoriteHospitalDao {
 
     @Query("SELECT * FROM favorite_hospital WHERE hospitalId = :hospitalId")
     fun getFavoriteHospitalsByHospitalId(hospitalId: String): Flow<List<FavoriteHospitalEntity>>
+
+    @Query("SELECT * FROM favorite_hospital WHERE folderId = :folderId")
+    fun getFavoriteHospitalsByFolderId(folderId: Long): List<FavoriteHospitalEntity>
 
 }

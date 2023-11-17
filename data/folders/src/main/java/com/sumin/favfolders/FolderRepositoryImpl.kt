@@ -24,15 +24,19 @@ class FolderRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteFolders(vararg folder: FolderModel) {
+        folder.forEach { folder ->
+            val favoriteHospitals = getFavoriteHospitalsByFolderId(folder.id)
+            deleteFavoriteHospital(*favoriteHospitals.toTypedArray())
+        }
         folderLocalDataSource.deleteFolder(*folder)
     }
 
-    override suspend fun insertFavoriteHospital(folder: FavoriteHospitalModel) {
-        folderLocalDataSource.insertFavoriteHospital(folder)
+    override suspend fun insertFavoriteHospital(favoriteHospital: FavoriteHospitalModel) {
+        folderLocalDataSource.insertFavoriteHospital(favoriteHospital)
     }
 
-    override suspend fun deleteFavoriteHospital(folder: FavoriteHospitalModel) {
-        folderLocalDataSource.deleteFavoriteHospital(folder)
+    override suspend fun deleteFavoriteHospital(vararg favoriteHospital: FavoriteHospitalModel) {
+        folderLocalDataSource.deleteFavoriteHospital(*favoriteHospital)
     }
 
     override suspend fun isFavoriteHospital(hospitalId: String): Boolean {
@@ -41,5 +45,9 @@ class FolderRepositoryImpl @Inject constructor(
 
     override suspend fun getFavoriteHospitalsByHospitalId(hospitalId: String): Flow<List<FavoriteHospitalModel>> {
         return folderLocalDataSource.getFavoriteHospitalsByHospitalId(hospitalId)
+    }
+
+    override suspend fun getFavoriteHospitalsByFolderId(folderId: Long): List<FavoriteHospitalModel> {
+        return folderLocalDataSource.getFavoriteHospitalsByFolderId(folderId)
     }
 }

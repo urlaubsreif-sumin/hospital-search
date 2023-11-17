@@ -1,6 +1,5 @@
 package com.sumin.hospital
 
-import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -21,19 +20,18 @@ class NavigatorImpl @Inject constructor(private val activity: FragmentActivity) 
     override fun navigate(to: Route) {
         when (to) {
             is Route.ActionSearchFragmentToHospitalDetailFragment -> {
-                val action = SearchFragmentDirections.actionSearchFragmentToHospitalDetailFragment(to.id)
+                val action =
+                    SearchFragmentDirections.actionSearchFragmentToHospitalDetailFragment(to.id)
                 navController.navigate(action)
             }
 
             is Route.ActionHospitalDetailFragmentToWebViewActivity -> {
                 val action =
-                    HospitalDetailFragmentDirections.actionHospitalDetailFragmentToWebViewActivity(to.url)
+                    HospitalDetailFragmentDirections.actionHospitalDetailFragmentToWebViewActivity(
+                        to.url
+                    )
                 navController.navigate(action)
             }
         }
-    }
-
-    override fun popBackStack() {
-        navController.popBackStack()
     }
 }
